@@ -1,0 +1,68 @@
+<form [formGroup]="cuentaForm" novalidate (ngSubmit)="onSubmit()">
+  <mat-card class="shipping-card">
+    <mat-card-header>
+      <mat-card-title>Nueva Cuenta</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Nombre de la cuenta" formControlName="nombre">
+            <mat-error *ngIf="cuentaForm.controls['nombre'].hasError('required')">
+              El nombre es <strong>requerido</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Valor inicial" formControlName="valor_inicial">
+            <mat-error *ngIf="cuentaForm.controls['valor_inicial'].hasError('required')">
+              Valor inicial es <strong>requerido</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-select placeholder="Moneda" formControlName="moneda">
+              <mat-option *ngFor="let moneda of monedas" [value]="moneda._id">
+                {{ moneda.nombre }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="cuentaForm.controls['moneda'].hasError('required')">
+              Moneda es <strong>requerido</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <textarea matInput placeholder="Tipo de cuenta" formControlName="tipo"></textarea>
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Color" formControlName="color">
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Descripción" formControlName="descripcion">
+          </mat-form-field>
+        </div>
+      </div>
+      
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" type="submit">Guardar</button>
+    </mat-card-actions>
+  </mat-card>
+</form>
