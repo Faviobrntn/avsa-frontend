@@ -42,3 +42,8 @@ table {
 .mat-column-created {
   max-width: 124px;
 }
+
+.marginx{
+  margin-left: 6px;
+  margin-right: 6px;
+}

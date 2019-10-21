@@ -1,4 +1,5 @@
 export interface Cuenta {
+    _id: string;
     nombre: String;
     valor_inicial: Number;
     color: String;
@@ -6,6 +7,4 @@ export interface Cuenta {
     descripcion: String;
     // moneda: Array<String>;
     moneda: String;
-    // usuario: Array<String>;
-    usuario: String;
 }

@@ -1,0 +1,24 @@
+<h1 mat-dialog-title>Cuenta {{data.nombre}}</h1>
+<div mat-dialog-content>
+    Detalle de la cuenta:
+    <ul>
+        <li *ngIf="data.nombre">
+            <b>Nombre: </b> {{data.nombre}}
+        </li>
+        <li *ngIf="data.valor_inicial">
+            <b>Valor inicial: </b> {{data.valor_inicial}}
+        </li>
+        <li *ngIf="data.moneda">
+            <b>Moneda: </b> {{data.moneda}}
+        </li>
+        <li *ngIf="data.color">
+            <b>Color: </b> {{data.color}}
+        </li>
+        <li *ngIf="data.tipo">
+            <b>Tipo: </b> {{data.tipo}}
+        </li>
+        <li *ngIf="data.dialogo">
+            <b>Dialogo: </b> {{data.dialogo}}
+        </li>
+    </ul>
+</div>

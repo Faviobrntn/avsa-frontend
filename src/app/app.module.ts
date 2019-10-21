@@ -22,7 +22,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
-import { MatProgressSpinnerModule, MatSnackBarModule } from '@angular/material';
+import { MatProgressSpinnerModule, MatSnackBarModule, MatDialogModule } from '@angular/material';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
@@ -36,7 +36,7 @@ import { CuentasFormComponent } from './componentes/cuentas-form/cuentas-form.co
     NavegacionComponent,
     HomeComponent,
     CuentasComponent,
-    CuentasFormComponent
+    CuentasFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -61,7 +61,8 @@ import { CuentasFormComponent } from './componentes/cuentas-form/cuentas-form.co
     MatInputModule,
     MatSelectModule,
     MatRadioModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

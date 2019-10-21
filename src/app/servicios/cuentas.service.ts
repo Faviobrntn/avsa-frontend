@@ -23,7 +23,7 @@ export class CuentasService {
 	 * get
 	 */
 	public get(id: string) {
-		return this.http.get(this.URL_API + `/$(id)/`);
+		return this.http.get(this.URL_API + '/' + id);
 	}
 
 	/**
@@ -38,7 +38,7 @@ export class CuentasService {
 	 * actualizar
 	 */
 	public actualizar(cuenta: Cuenta) {
-		return this.http.put(this.URL_API + `/$(usuario._id)/`, cuenta);
+		return this.http.put(this.URL_API + '/' + cuenta._id, cuenta);
 	}
 
 
@@ -46,6 +46,6 @@ export class CuentasService {
 	 * eliminar
 	 */
 	public eliminar(id: string) {
-		return this.http.delete(this.URL_API + `/$(id)/`);
+		return this.http.delete(this.URL_API + '/' + id);
 	}
 }

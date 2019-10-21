@@ -2,8 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { UsuariosComponent } from './componentes/usuarios/usuarios.component';
 import { HomeComponent } from './componentes/home/home.component';
-import { TablaComponent } from './componentes/tabla/tabla.component';
-import { FormComponent } from './componentes/form/form.component';
 import { CuentasComponent } from './componentes/cuentas/cuentas.component';
 import { CuentasFormComponent } from './componentes/cuentas-form/cuentas-form.component';
 
@@ -21,12 +19,8 @@ const routes: Routes = [
     component: CuentasFormComponent
   },
   {
-    path: 'tabla',
-    component: TablaComponent
-  },
-  {
-    path: 'form',
-    component: FormComponent
+    path: 'editar-cuenta/:id',
+    component: CuentasFormComponent
   },
   {
     path: '*',

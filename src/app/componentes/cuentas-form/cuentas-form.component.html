@@ -1,7 +1,8 @@
 <form [formGroup]="cuentaForm" novalidate (ngSubmit)="onSubmit()">
   <mat-card class="shipping-card">
     <mat-card-header>
-      <mat-card-title>Nueva Cuenta</mat-card-title>
+      <mat-card-title *ngIf="!cuenta">Nueva Cuenta</mat-card-title>
+      <mat-card-title *ngIf="cuenta">Editar Cuenta</mat-card-title>
     </mat-card-header>
     <mat-card-content>
 
@@ -42,7 +43,7 @@
       <div class="row">
         <div class="col">
           <mat-form-field class="full-width">
-            <textarea matInput placeholder="Tipo de cuenta" formControlName="tipo"></textarea>
+            <input matInput placeholder="Tipo de cuenta" formControlName="tipo">
           </mat-form-field>
         </div>
         <div class="col">
@@ -55,14 +56,16 @@
       <div class="row">
         <div class="col">
           <mat-form-field class="full-width">
-            <input matInput placeholder="Descripción" formControlName="descripcion">
+            <textarea matInput placeholder="Descripción" formControlName="descripcion"></textarea>
           </mat-form-field>
         </div>
       </div>
       
     </mat-card-content>
     <mat-card-actions>
-      <button mat-raised-button color="primary" type="submit">Guardar</button>
+      <!-- <button mat-raised-button color="primary" type="submit">Guardar</button> -->
+      <button mat-raised-button color="primary" type="submit" *ngIf="!cuenta">Nuevo</button>
+      <button mat-raised-button color="primary" type="submit" *ngIf="cuenta">Guardar</button>
     </mat-card-actions>
   </mat-card>
 </form>
