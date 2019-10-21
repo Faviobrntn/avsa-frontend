@@ -7,7 +7,9 @@ import { catchError, map, startWith, switchMap } from 'rxjs/operators';
 import { Cuenta } from 'src/app/modelos/cuenta';
 import { CuentasService } from 'src/app/servicios/cuentas.service';
 import { MensajesService } from 'src/app/servicios/mensajes.service';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DialogosComponent } from '../dialogos/dialogos.component';
+
 
 @Component({
   selector: 'app-cuentas',
@@ -52,8 +54,6 @@ export class CuentasComponent implements AfterViewInit {
 					this.isLoadingResults = false;
 					this.isRateLimitReached = false;
 					this.resultsLength = data.total_count;
-					console.log(data.items);
-					
 					return data.items;
 				}),
 				catchError(() => {
@@ -67,9 +67,20 @@ export class CuentasComponent implements AfterViewInit {
 
 	ver(id: string) {
 		this.cuentasServicio.get(id).subscribe(
-			(resp) => {
-				this.dialog.open(DialogDataExampleDialog, {
-					data: resp
+			(resp: Cuenta) => {
+				const datos = {
+					"Nombre": resp.nombre,
+					"Valor inicial": resp.valor_inicial,
+					"Moneda": resp.moneda.nombre,
+					"Tipo": resp.tipo,
+					"Color": resp.color,
+					"Creado": (new Date(resp.createdAt)).toLocaleDateString(),
+					"Actualizado": (new Date(resp.updatedAt)).toLocaleDateString(),
+					"Descripción": resp.descripcion
+				}
+				
+				this.dialog.open(DialogosComponent, {
+					data: datos,
 				});
 			},
 			(err) => {
@@ -113,14 +124,4 @@ export class CuentasDataSource {
 		// this._httpClient.get<CuentaApi>(requestUrl).subscribe(resp => console.log(resp));
 		return this._httpClient.get<CuentaApi>(requestUrl);
 	}
-}
-
-
-
-@Component({
-	selector: 'dialogo',
-	templateUrl: 'dialogo.html',
-})
-export class DialogDataExampleDialog {
-	constructor(@Inject(MAT_DIALOG_DATA) public data: Cuenta) { }
 }

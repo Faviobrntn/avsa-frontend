@@ -1,6 +1,11 @@
 <h1 mat-dialog-title>Cuenta {{data.nombre}}</h1>
 <div mat-dialog-content>
     Detalle de la cuenta:
+    <ul *ngFor="let item of values(); keys() as indice">
+        <li>
+            <b>{{indice}}: </b> {{item}}
+        </li>
+    </ul>
     <ul>
         <li *ngIf="data.nombre">
             <b>Nombre: </b> {{data.nombre}}

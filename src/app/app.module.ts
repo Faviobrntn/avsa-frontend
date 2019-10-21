@@ -22,12 +22,13 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
-import { MatProgressSpinnerModule, MatSnackBarModule, MatDialogModule } from '@angular/material';
+import { MatProgressSpinnerModule, MatSnackBarModule, MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
 import { CuentasComponent } from './componentes/cuentas/cuentas.component';
 import { CuentasFormComponent } from './componentes/cuentas-form/cuentas-form.component';
+import { DialogosComponent } from './componentes/dialogos/dialogos.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,9 @@ import { CuentasFormComponent } from './componentes/cuentas-form/cuentas-form.co
     HomeComponent,
     CuentasComponent,
     CuentasFormComponent,
+    DialogosComponent,
   ],
+  entryComponents: [DialogosComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -64,7 +67,9 @@ import { CuentasFormComponent } from './componentes/cuentas-form/cuentas-form.co
     MatSnackBarModule,
     MatDialogModule
   ],
-  providers: [],
+  providers: [
+    { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false } }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
