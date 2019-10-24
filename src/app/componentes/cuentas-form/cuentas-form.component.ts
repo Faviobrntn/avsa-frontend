@@ -62,6 +62,7 @@ export class CuentasFormComponent {
 						(resp) => {
 							this.cuenta = resp as Cuenta;
 							console.log(resp);
+							
 							this.cuentaForm = this.fb.group({
 								// id: this.cuenta._id,
 								nombre: [this.cuenta.nombre, Validators.required],
@@ -69,7 +70,7 @@ export class CuentasFormComponent {
 								color: this.cuenta.color,
 								tipo: this.cuenta.tipo,
 								descripcion: this.cuenta.descripcion,
-								moneda: [this.cuenta.moneda, Validators.required]
+								moneda: [this.cuenta.moneda._id, Validators.required]
 							});
 							
 						},

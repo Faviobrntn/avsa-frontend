@@ -4,22 +4,21 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { merge, Observable, of as observableOf } from 'rxjs';
 import { catchError, map, startWith, switchMap } from 'rxjs/operators';
-import { Cuenta } from 'src/app/modelos/cuenta';
-import { CuentasService } from 'src/app/servicios/cuentas.service';
+import { Registro } from 'src/app/modelos/registro';
+import { RegistrosService } from 'src/app/servicios/registros.service';
 import { MensajesService } from 'src/app/servicios/mensajes.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DialogosComponent } from '../dialogos/dialogos.component';
 
-
 @Component({
-  selector: 'app-cuentas',
-  templateUrl: './cuentas.component.html',
-  styleUrls: ['./cuentas.component.css']
+  selector: 'app-registros',
+  templateUrl: './registros.component.html',
+  styleUrls: ['./registros.component.css']
 })
-export class CuentasComponent implements AfterViewInit {
-	displayedColumns: string[] = ['nombre', 'valor_inicial', 'moneda', 'createdAt', 'accion'];
-	cuentasDatabase: CuentasDataSource | null;
-	data: Cuenta[] = [];
+export class RegistrosComponent implements AfterViewInit {
+	displayedColumns: string[] = ['tipo', 'importe', 'estado', 'fecha_hora', 'cuenta', 'createdAt', 'accion'];
+	registroDatabase: RegistrosDataSource | null;
+	data: Registro[] = [];
 
 	resultsLength = 0;
 	isLoadingResults = true;
@@ -30,13 +29,13 @@ export class CuentasComponent implements AfterViewInit {
 
 	constructor(
 		private _httpClient: HttpClient,
-		private cuentasServicio: CuentasService,
+		private registroServicio: RegistrosService,
 		private _mensajes: MensajesService,
 		public dialog: MatDialog
 	) { }
 
 	ngAfterViewInit() {
-		this.cuentasDatabase = new CuentasDataSource(this._httpClient);
+		this.registroDatabase = new RegistrosDataSource(this._httpClient);
 
 		// If the user changes the sort order, reset back to the first page.
 		this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
@@ -46,7 +45,7 @@ export class CuentasComponent implements AfterViewInit {
 				startWith({}),
 				switchMap(() => {
 					this.isLoadingResults = true;
-					return this.cuentasDatabase!.getRepoIssues(
+					return this.registroDatabase!.getRepoIssues(
 						this.sort.active, this.sort.direction, this.paginator.pageIndex, this.paginator.pageSize);
 				}),
 				map(data => {
@@ -66,19 +65,19 @@ export class CuentasComponent implements AfterViewInit {
 	}
 
 	ver(id: string) {
-		this.cuentasServicio.get(id).subscribe(
-			(resp: Cuenta) => {
+		this.registroServicio.get(id).subscribe(
+			(resp: Registro) => {
 				const datos = {
-					"Nombre": resp.nombre,
-					"Valor inicial": resp.valor_inicial,
-					"Moneda": resp.moneda.nombre,
-					"Tipo": resp.tipo,
-					"Color": resp.color,
+					"Nombre": resp.tipo,
+					"Valor inicial": resp.importe,
+					"Tipo": resp.estado,
+					"Color": resp.fecha_hora,
+					"Cuenta": resp.cuenta.nombre,
 					"Creado": (new Date(resp.createdAt)).toLocaleDateString(),
 					"Actualizado": (new Date(resp.updatedAt)).toLocaleDateString(),
-					"Descripción": resp.descripcion
+					"Descripción": resp.notas
 				}
-				
+
 				this.dialog.open(DialogosComponent, {
 					data: datos,
 				});
@@ -90,9 +89,9 @@ export class CuentasComponent implements AfterViewInit {
 		);
 	}
 
-	eliminar(id: string){
+	eliminar(id: string) {
 		if (confirm("Se va a eliminar la fila seleccionada. ¿Desea continuar?")) {
-			this.cuentasServicio.eliminar(id).subscribe(
+			this.registroServicio.eliminar(id).subscribe(
 				(resp) => {
 					this._mensajes.enviar("Se elimino con éxito");
 					this.ngAfterViewInit();
@@ -106,22 +105,22 @@ export class CuentasComponent implements AfterViewInit {
 	}
 }
 
-export interface CuentaApi {
-	items: Cuenta[];
+export interface RegistroApi {
+	items: Registro[];
 	total_count: number;
 }
 
 
 /** An example database that the data source uses to retrieve data for the table. */
-export class CuentasDataSource {
+export class RegistrosDataSource {
 	constructor(private _httpClient: HttpClient) { }
 
-	getRepoIssues(sort: string, order: string, page: number, limit: number): Observable<CuentaApi> {
-		const href = 'http://localhost:5000/api/cuentas/tabla';
+	getRepoIssues(sort: string, order: string, page: number, limit: number): Observable<RegistroApi> {
+		const href = 'http://localhost:5000/api/registros/tabla';
 		const requestUrl =
 			`${href}?q=repo:angular/components&sort=${sort}&order=${order}&page=${page + 1}&limit=${limit}`;
 
-		// this._httpClient.get<CuentaApi>(requestUrl).subscribe(resp => console.log(resp));
-		return this._httpClient.get<CuentaApi>(requestUrl);
+		// this._httpClient.get<RegistroApi>(requestUrl).subscribe(resp => console.log(resp));
+		return this._httpClient.get<RegistroApi>(requestUrl);
 	}
 }

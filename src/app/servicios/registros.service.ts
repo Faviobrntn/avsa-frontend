@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Cuenta } from '../modelos/cuenta';
+import { Registro } from '../modelos/registro';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CuentasService {
-	// user: Cuenta;
-	// users: Cuenta[];
-	readonly URL_API = 'http://localhost:5000/api/cuentas';
+export class RegistrosService {
+
+	readonly URL_API = 'http://localhost:5000/api/registros';
 
 	constructor(private http: HttpClient) { }
 
@@ -29,7 +28,7 @@ export class CuentasService {
 	/**
 	 * nuevo
 	 */
-	public nuevo(entidad: Cuenta) {
+	public nuevo(entidad: Registro) {
 		return this.http.post(this.URL_API, entidad);
 	}
 
@@ -37,7 +36,7 @@ export class CuentasService {
 	/**
 	 * actualizar
 	 */
-	public actualizar(entidad: Cuenta) {
+	public actualizar(entidad: Registro) {
 		return this.http.put(this.URL_API + '/' + entidad._id, entidad);
 	}
 

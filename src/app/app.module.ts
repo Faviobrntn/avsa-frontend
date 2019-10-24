@@ -29,6 +29,8 @@ import { MatRadioModule } from '@angular/material/radio';
 import { CuentasComponent } from './componentes/cuentas/cuentas.component';
 import { CuentasFormComponent } from './componentes/cuentas-form/cuentas-form.component';
 import { DialogosComponent } from './componentes/dialogos/dialogos.component';
+import { RegistrosComponent } from './componentes/registros/registros.component';
+import { RegistrosFormComponent } from './componentes/registros-form/registros-form.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +41,8 @@ import { DialogosComponent } from './componentes/dialogos/dialogos.component';
     CuentasComponent,
     CuentasFormComponent,
     DialogosComponent,
+    RegistrosComponent,
+    RegistrosFormComponent,
   ],
   entryComponents: [DialogosComponent],
   imports: [

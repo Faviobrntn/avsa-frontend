@@ -1,4 +1,5 @@
 import { Timestamp } from 'rxjs/internal/operators/timestamp';
+import { Moneda } from './moneda';
 
 export interface Cuenta {
     _id: string;
@@ -7,9 +8,7 @@ export interface Cuenta {
     color: string;
     tipo: string;
     descripcion: string;
-    moneda: {
-        nombre: string
-    };
+    moneda: Moneda;
     createdAt: string;
     updatedAt: string
 }
