@@ -1,1 +1,82 @@
-<p>registros-form works!</p>
+<form [formGroup]="registroForm" novalidate (ngSubmit)="onSubmit()">
+    <mat-card class="shipping-card">
+        <mat-card-header>
+            <mat-card-title *ngIf="!registro">Nuevo Registro</mat-card-title>
+            <mat-card-title *ngIf="registro">Editar Registro</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+tipo: [null, Validators.required],
+fecha_hora: [null, Validators.required],
+importe: [null, Validators.required],
+estado: null,
+notas: null,
+cuenta: [null, Validators.required]
+            <div class="row">
+                <div class="col">
+                    <mat-form-field class="full-width">
+                        <input matInput placeholder="Fecha" formControlName="fecha_hora">
+                        <mat-error *ngIf="registroForm.controls['fecha_hora'].hasError('required')">
+                            La Fecha es <strong>requerido</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                
+                <div class="col">
+                    <mat-form-field class="full-width">
+                        <input matInput placeholder="Tipo de registro" formControlName="tipo">
+                        <mat-error *ngIf="registroForm.controls['tipo'].hasError('required')">
+                            El Tipo es <strong>requerido</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                
+                <div class="col">
+                    <mat-form-field class="full-width">
+                        <input matInput placeholder="Importe" formControlName="importe">
+                        <mat-error *ngIf="registroForm.controls['importe'].hasError('required')">
+                            Importe es <strong>requerido</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                
+                <div class="col">
+                    <mat-form-field class="full-width">
+                        <input matInput placeholder="Estado" formControlName="estado">
+                        <mat-error *ngIf="registroForm.controls['estado'].hasError('required')">
+                            Estado es <strong>requerido</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <mat-form-field class="full-width">
+                        <mat-select placeholder="Cuentas" formControlName="cuenta">
+                            <mat-option *ngFor="let cuenta of cuentas" [value]="cuenta._id">
+                                {{ cuenta.nombre }}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="registroForm.controls['cuenta'].hasError('required')">
+                            Cuenta es <strong>requerido</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <mat-form-field class="full-width">
+                        <textarea matInput placeholder="Notas" formControlName="notas"></textarea>
+                    </mat-form-field>
+                </div>
+            </div>
+
+        </mat-card-content>
+        <mat-card-actions>
+            <!-- <button mat-raised-button color="primary" type="submit">Guardar</button> -->
+            <button mat-raised-button color="primary" type="submit" *ngIf="!registro">Nuevo</button>
+            <button mat-raised-button color="primary" type="submit" *ngIf="registro">Guardar</button>
+        </mat-card-actions>
+    </mat-card>
+</form>
