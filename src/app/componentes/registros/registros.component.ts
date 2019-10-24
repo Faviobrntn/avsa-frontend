@@ -16,7 +16,7 @@ import { DialogosComponent } from '../dialogos/dialogos.component';
   styleUrls: ['./registros.component.css']
 })
 export class RegistrosComponent implements AfterViewInit {
-	displayedColumns: string[] = ['tipo', 'importe', 'estado', 'fecha_hora', 'cuenta', 'createdAt', 'accion'];
+	displayedColumns: string[] = ['fecha_hora', 'tipo', 'importe', 'estado', 'cuenta', 'createdAt', 'accion'];
 	registroDatabase: RegistrosDataSource | null;
 	data: Registro[] = [];
 
