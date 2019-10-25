@@ -37,6 +37,10 @@ const routes: Routes = [
     component: RegistrosFormComponent
   },
   {
+    path: 'home',
+    component: HomeComponent
+  },
+  {
     path: '*',
     component: HomeComponent
   },
