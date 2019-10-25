@@ -18,10 +18,10 @@ export class RegistrosFormComponent {
   	readonly URL_API = 'http://localhost:5000/api/';
 
   	registroForm = this.fb.group({
-		tipo: [null, Validators.required],
-		fecha_hora: [null, Validators.required],
+		tipo: ['Ingreso', Validators.required],
+		fecha_hora: [(new Date()).toLocaleDateString(), Validators.required],
 		importe: [null, Validators.required],
-		estado: null,
+		estado: 'Procesado',
 		notas: null,
 		cuenta: [null, Validators.required]
 	});
@@ -29,6 +29,8 @@ export class RegistrosFormComponent {
 	hasUnitNumber = false;
 
 	cuentas: Cuenta[] = []; 
+	tipos = this.registrosServicio.tipos;
+	estados = this.registrosServicio.estados;
 
 	constructor(
 		private fb: FormBuilder,
@@ -87,14 +89,20 @@ export class RegistrosFormComponent {
 		const form = this.registroForm.value;
 		console.log(form);
 
-		if (!form.nombre) {
-			this._mensajes.enviar("Nombre es obligatorio."); return;
+		if (!form.tipo) {
+			this._mensajes.enviar("El tipo de registro es obligatorio."); return;
 		}
-		if (!form.valor_inicial) {
-			this._mensajes.enviar("El valor inicial es obligatorio."); return;
+		if (!form.fecha_hora) {
+			this._mensajes.enviar("La fecha es obligatoria."); return;
+		}
+		if (!form.importe) {
+			this._mensajes.enviar("El importe es obligatorio."); return;
 		}
 		if (!form.cuenta) {
 			this._mensajes.enviar("La cuenta es obligatoria."); return;
+		}
+		if (!form.estado) {
+			this._mensajes.enviar("El estado es obligatoria."); return;
 		}
 
 		if (this.registro) {
@@ -102,7 +110,7 @@ export class RegistrosFormComponent {
 			this.registrosServicio.actualizar(form).subscribe(
 				(resp) => {
 					this._mensajes.enviar("Se guardo con éxito");
-					this.router.navigate(['mis-cuentas']);
+					this.router.navigate(['mis-registros']);
 				},
 				(err) => {
 					this._mensajes.enviar(err);
@@ -113,7 +121,7 @@ export class RegistrosFormComponent {
 			this.registrosServicio.nuevo(form).subscribe(
 				(resp) => {
 					this._mensajes.enviar("Se guardo con éxito");
-					this.router.navigate(['mis-cuentas']);
+					this.router.navigate(['mis-registros']);
 				},
 				(err) => {
 					this._mensajes.enviar(err);

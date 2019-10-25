@@ -4,14 +4,22 @@
             <mat-card-title *ngIf="!registro">Nuevo Registro</mat-card-title>
             <mat-card-title *ngIf="registro">Editar Registro</mat-card-title>
         </mat-card-header>
+
         <mat-card-content>
-tipo: [null, Validators.required],
-fecha_hora: [null, Validators.required],
-importe: [null, Validators.required],
-estado: null,
-notas: null,
-cuenta: [null, Validators.required]
             <div class="row">
+                <div class="col">
+                    <mat-form-field class="full-width">
+                        <mat-select placeholder="Tipo de registro" formControlName="tipo">
+                            <mat-option *ngFor="let tipo of tipos" [value]="tipo">
+                                {{ tipo }}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="registroForm.controls['tipo'].hasError('required')">
+                            El Tipo es <strong>requerido</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
                 <div class="col">
                     <mat-form-field class="full-width">
                         <input matInput placeholder="Fecha" formControlName="fecha_hora">
@@ -20,16 +28,9 @@ cuenta: [null, Validators.required]
                         </mat-error>
                     </mat-form-field>
                 </div>
-                
-                <div class="col">
-                    <mat-form-field class="full-width">
-                        <input matInput placeholder="Tipo de registro" formControlName="tipo">
-                        <mat-error *ngIf="registroForm.controls['tipo'].hasError('required')">
-                            El Tipo es <strong>requerido</strong>
-                        </mat-error>
-                    </mat-form-field>
-                </div>
-                
+            </div>
+            
+            <div class="row">
                 <div class="col">
                     <mat-form-field class="full-width">
                         <input matInput placeholder="Importe" formControlName="importe">
@@ -41,7 +42,11 @@ cuenta: [null, Validators.required]
                 
                 <div class="col">
                     <mat-form-field class="full-width">
-                        <input matInput placeholder="Estado" formControlName="estado">
+                        <mat-select placeholder="Estado" formControlName="estado">
+                            <mat-option *ngFor="let estado of estados" [value]="estado">
+                                {{ estado }}
+                            </mat-option>
+                        </mat-select>
                         <mat-error *ngIf="registroForm.controls['estado'].hasError('required')">
                             Estado es <strong>requerido</strong>
                         </mat-error>
@@ -74,7 +79,6 @@ cuenta: [null, Validators.required]
 
         </mat-card-content>
         <mat-card-actions>
-            <!-- <button mat-raised-button color="primary" type="submit">Guardar</button> -->
             <button mat-raised-button color="primary" type="submit" *ngIf="!registro">Nuevo</button>
             <button mat-raised-button color="primary" type="submit" *ngIf="registro">Guardar</button>
         </mat-card-actions>

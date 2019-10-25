@@ -68,10 +68,10 @@ export class RegistrosComponent implements AfterViewInit {
 		this.registroServicio.get(id).subscribe(
 			(resp: Registro) => {
 				const datos = {
-					"Nombre": resp.tipo,
-					"Valor inicial": resp.importe,
-					"Tipo": resp.estado,
-					"Color": resp.fecha_hora,
+					"Tipo": resp.tipo,
+					"Fecha": resp.fecha_hora,
+					"Importe": resp.importe,
+					"Estado": resp.estado,
 					"Cuenta": resp.cuenta.nombre,
 					"Creado": (new Date(resp.createdAt)).toLocaleDateString(),
 					"Actualizado": (new Date(resp.updatedAt)).toLocaleDateString(),

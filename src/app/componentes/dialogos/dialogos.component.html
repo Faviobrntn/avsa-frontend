@@ -1,6 +1,6 @@
-<h1 mat-dialog-title>Cuenta {{data.nombre}}</h1>
+<h1 mat-dialog-title>Detalles {{data.nombre}}</h1>
 <div mat-dialog-content>
-    Detalle de la cuenta:
+    <!-- Detalle de la cuenta: -->
     <ul *ngFor="let key of keys(); index as indice">
         <li *ngIf="data[key]">
             <b>{{key}}: </b> {{data[key]}}

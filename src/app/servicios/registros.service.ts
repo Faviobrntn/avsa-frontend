@@ -8,6 +8,18 @@ import { Registro } from '../modelos/registro';
 export class RegistrosService {
 
 	readonly URL_API = 'http://localhost:5000/api/registros';
+	/* readonly tipos = [
+		{
+			id: 1,
+			name: 'Ingreso'
+		},
+		{
+			id: '',
+			name: 'Gasto'
+		}
+	];  */
+	readonly tipos = ['Ingreso', 'Gasto']; 
+	readonly estados = ['Conciliado', 'Procesado', 'Pendiente']; 
 
 	constructor(private http: HttpClient) { }
 
