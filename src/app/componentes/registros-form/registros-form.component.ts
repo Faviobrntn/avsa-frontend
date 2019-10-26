@@ -6,6 +6,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { MensajesService } from 'src/app/servicios/mensajes.service';
 import { Registro } from 'src/app/modelos/registro';
 import { Cuenta } from 'src/app/modelos/cuenta';
+import { CuentasService } from 'src/app/servicios/cuentas.service';
 
 @Component({
   selector: 'app-registros-form',
@@ -15,8 +16,6 @@ import { Cuenta } from 'src/app/modelos/cuenta';
 export class RegistrosFormComponent {
 	registro: Registro;
   
-  	readonly URL_API = 'http://localhost:5000/api/';
-
   	registroForm = this.fb.group({
 		tipo: ['Ingreso', Validators.required],
 		fecha_hora: [(new Date()).toLocaleDateString(), Validators.required],
@@ -36,6 +35,7 @@ export class RegistrosFormComponent {
 		private fb: FormBuilder,
 		private _httpClient: HttpClient,
 		private registrosServicio: RegistrosService,
+		private _cuentasService: CuentasService,
 		private router: Router,
 		private routerActivo: ActivatedRoute,
 		private _mensajes: MensajesService
@@ -45,10 +45,8 @@ export class RegistrosFormComponent {
 		this.editar();
 	}
 
-
 	getCuentas() {
-		const href = this.URL_API + 'cuentas/listado';
-		this._httpClient.get(href).subscribe(
+		this._cuentasService.listado().subscribe(
 			(resp) => { this.cuentas = resp as Cuenta[]; },
 			(err) => { console.log(err); }
 		);

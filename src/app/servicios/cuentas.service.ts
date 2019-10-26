@@ -20,10 +20,24 @@ export class CuentasService {
 	}
 
 	/**
+	 * get Listado
+	 */
+	public listado() {
+		return this.http.get(this.URL_API + '/listado');
+	}
+
+	/**
 	 * get
 	 */
 	public get(id: string) {
 		return this.http.get(this.URL_API + '/' + id);
+	}
+
+	/**
+	 * get Saldo
+	 */
+	public saldo(id: string) {
+		return this.http.get(this.URL_API + '/saldo/' + id);
 	}
 
 	/**
