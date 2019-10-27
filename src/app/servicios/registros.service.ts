@@ -25,7 +25,7 @@ export class RegistrosService {
 	 * tabla
 	 */
 	public tabla(requestUrl) {
-		return this.http.get<CuentaApi>(this.URL_API + '/tabla' + requestUrl, {
+		return this.http.get<RegistroApi>(this.URL_API + '/tabla' + requestUrl, {
 			headers: this.headers
 		});
 	}
