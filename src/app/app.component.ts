@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { AuthService } from 'src/app/servicios/auth.service';
 
 @Component({
 	selector: 'app-root',
@@ -8,14 +7,8 @@ import { AuthService } from 'src/app/servicios/auth.service';
 })
 export class AppComponent {
 	title = 'frontend';
-	estaLogeado = false;
 
-	constructor(
-		private authService: AuthService
-	) { 
-		// if (this.authService.getToken()) {
-		// 	this.estaLogeado = true;
-		// }
+	constructor() { 
 	}
 
 }

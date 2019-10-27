@@ -12,7 +12,7 @@ export class AuthService {
 	readonly URL_API: string = 'http://localhost:5000/api/';
 	// AUTH_SERVER: string = 'http://localhost:5000/api/';
 	authSubject = new BehaviorSubject(false);
-	private token: string;
+	public token: string;
 
 	constructor(private http: HttpClient) { }
 
