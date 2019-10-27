@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { UsuariosComponent } from './componentes/usuarios/usuarios.component';
+import { LoginComponent } from './componentes/login/login.component';
 import { HomeComponent } from './componentes/home/home.component';
 import { CuentasComponent } from './componentes/cuentas/cuentas.component';
 import { CuentasFormComponent } from './componentes/cuentas-form/cuentas-form.component';
@@ -9,8 +9,12 @@ import { RegistrosFormComponent } from './componentes/registros-form/registros-f
 
 const routes: Routes = [
   {
-    path: 'usuarios',
-    component: UsuariosComponent
+    path: 'login/google/callback/:token/:expires',
+    component: LoginComponent
+  },
+  {
+    path: 'login',
+    component: LoginComponent
   },
   {
     path: 'mis-cuentas',
@@ -42,7 +46,8 @@ const routes: Routes = [
   },
   {
     path: '*',
-    component: HomeComponent
+    redirectTo: 'home'
+    // component: HomeComponent
   },
 ];
 

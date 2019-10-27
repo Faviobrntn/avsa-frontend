@@ -31,6 +31,7 @@ import { CuentasFormComponent } from './componentes/cuentas-form/cuentas-form.co
 import { DialogosComponent } from './componentes/dialogos/dialogos.component';
 import { RegistrosComponent } from './componentes/registros/registros.component';
 import { RegistrosFormComponent } from './componentes/registros-form/registros-form.component';
+import { LoginComponent } from './componentes/login/login.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { RegistrosFormComponent } from './componentes/registros-form/registros-f
     DialogosComponent,
     RegistrosComponent,
     RegistrosFormComponent,
+    LoginComponent,
   ],
   entryComponents: [DialogosComponent],
   imports: [

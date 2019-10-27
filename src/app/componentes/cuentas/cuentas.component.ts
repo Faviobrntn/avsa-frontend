@@ -116,10 +116,10 @@ export interface CuentaApi {
 export class CuentasDataSource {
 	constructor(private _httpClient: HttpClient) { }
 
-	getRepoIssues(sort: string, order: string, page: number, limit: number): Observable<CuentaApi> {
+	getRepoIssues(sort: string, order: string, page: number, limit: number, q:string = ''): Observable<CuentaApi> {
 		const href = 'http://localhost:5000/api/cuentas/tabla';
 		const requestUrl =
-			`${href}?q=repo:angular/components&sort=${sort}&order=${order}&page=${page + 1}&limit=${limit}`;
+			`${href}?q=${sort}&sort=${sort}&order=${order}&page=${page + 1}&limit=${limit}`;
 
 		// this._httpClient.get<CuentaApi>(requestUrl).subscribe(resp => console.log(resp));
 		return this._httpClient.get<CuentaApi>(requestUrl);

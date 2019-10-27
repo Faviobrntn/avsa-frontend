@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Cuenta } from '../modelos/cuenta';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,41 +11,68 @@ export class CuentasService {
 	// users: Cuenta[];
 	readonly URL_API = 'http://localhost:5000/api/cuentas';
 
-	constructor(private http: HttpClient) { }
+	headers = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' });
+
+	constructor(
+		private http: HttpClient,
+		private authService: AuthService
+	) { 
+		let token = this.authService.getToken();
+		this.headers.append('token', token);
+	}
+
+	/**
+	 * tabla
+	 */
+	public tabla(requestUrl) {
+		return this.http.get(requestUrl, {
+			headers: this.headers
+		});
+	}
 
 	/**
 	 * getAll
 	 */
 	public getAll() {
-		return this.http.get(this.URL_API);
+		return this.http.get(this.URL_API, {
+			headers: this.headers
+		});
 	}
 
 	/**
 	 * get Listado
 	 */
 	public listado() {
-		return this.http.get(this.URL_API + '/listado');
+		return this.http.get(this.URL_API + '/listado', {
+			headers: this.headers
+		});
 	}
 
 	/**
 	 * get
 	 */
 	public get(id: string) {
-		return this.http.get(this.URL_API + '/' + id);
+		return this.http.get(this.URL_API + '/' + id, {
+			headers: this.headers
+		});
 	}
 
 	/**
 	 * get Saldo
 	 */
 	public saldo(id: string) {
-		return this.http.get(this.URL_API + '/saldo/' + id);
+		return this.http.get(this.URL_API + '/saldo/' + id, {
+			headers: this.headers
+		});
 	}
 
 	/**
 	 * nuevo
 	 */
 	public nuevo(entidad: Cuenta) {
-		return this.http.post(this.URL_API, entidad);
+		return this.http.post(this.URL_API, entidad, {
+			headers: this.headers
+		});
 	}
 
 
@@ -52,7 +80,9 @@ export class CuentasService {
 	 * actualizar
 	 */
 	public actualizar(entidad: Cuenta) {
-		return this.http.put(this.URL_API + '/' + entidad._id, entidad);
+		return this.http.put(this.URL_API + '/' + entidad._id, entidad, {
+			headers: this.headers
+		});
 	}
 
 
@@ -60,6 +90,8 @@ export class CuentasService {
 	 * eliminar
 	 */
 	public eliminar(id: string) {
-		return this.http.delete(this.URL_API + '/' + id);
+		return this.http.delete(this.URL_API + '/' + id, {
+			headers: this.headers
+		});
 	}
 }
