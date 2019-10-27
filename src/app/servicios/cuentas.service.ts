@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Cuenta } from '../modelos/cuenta';
+import { Cuenta, CuentaApi } from '../modelos/cuenta';
 import { AuthService } from './auth.service';
+
 
 @Injectable({
   providedIn: 'root'
@@ -11,21 +12,22 @@ export class CuentasService {
 	// users: Cuenta[];
 	readonly URL_API = 'http://localhost:5000/api/cuentas';
 
-	headers = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' });
+	// headers = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' });
+	headers = { 'authorization': this.authService.getToken()};
 
 	constructor(
 		private http: HttpClient,
 		private authService: AuthService
 	) { 
-		let token = this.authService.getToken();
-		this.headers.append('token', token);
+		// let token = this.authService.getToken();
+		// this.headers.append('authorization', token);
 	}
 
 	/**
 	 * tabla
 	 */
 	public tabla(requestUrl) {
-		return this.http.get(requestUrl, {
+		return this.http.get<CuentaApi>(this.URL_API + '/tabla' +requestUrl, {
 			headers: this.headers
 		});
 	}

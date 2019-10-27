@@ -12,3 +12,9 @@ export interface Cuenta {
     createdAt: string;
     updatedAt: string
 }
+
+
+export interface CuentaApi {
+    items: Cuenta[];
+    total_count: number;
+}

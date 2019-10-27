@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Registro } from '../modelos/registro';
+import { Registro, RegistroApi } from '../modelos/registro';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,40 +9,52 @@ import { Registro } from '../modelos/registro';
 export class RegistrosService {
 
 	readonly URL_API = 'http://localhost:5000/api/registros';
-	/* readonly tipos = [
-		{
-			id: 1,
-			name: 'Ingreso'
-		},
-		{
-			id: '',
-			name: 'Gasto'
-		}
-	];  */
+
 	readonly tipos = ['Ingreso', 'Gasto']; 
 	readonly estados = ['Conciliado', 'Procesado', 'Pendiente']; 
 
-	constructor(private http: HttpClient) { }
+	headers = { 'authorization': this.authService.getToken() };
+
+	constructor(
+		private http: HttpClient,
+		private authService: AuthService
+	) { }
+
+
+	/**
+	 * tabla
+	 */
+	public tabla(requestUrl) {
+		return this.http.get<CuentaApi>(this.URL_API + '/tabla' + requestUrl, {
+			headers: this.headers
+		});
+	}
 
 	/**
 	 * getAll
 	 */
 	public getAll() {
-		return this.http.get(this.URL_API);
+		return this.http.get(this.URL_API, {
+			headers: this.headers
+		});
 	}
 
 	/**
 	 * get
 	 */
 	public get(id: string) {
-		return this.http.get(this.URL_API + '/' + id);
+		return this.http.get(this.URL_API + '/' + id, {
+			headers: this.headers
+		});
 	}
 
 	/**
 	 * nuevo
 	 */
 	public nuevo(entidad: Registro) {
-		return this.http.post(this.URL_API, entidad);
+		return this.http.post(this.URL_API, entidad, {
+			headers: this.headers
+		});
 	}
 
 
@@ -49,7 +62,9 @@ export class RegistrosService {
 	 * actualizar
 	 */
 	public actualizar(entidad: Registro) {
-		return this.http.put(this.URL_API + '/' + entidad._id, entidad);
+		return this.http.put(this.URL_API + '/' + entidad._id, entidad, {
+			headers: this.headers
+		});
 	}
 
 
@@ -57,6 +72,8 @@ export class RegistrosService {
 	 * eliminar
 	 */
 	public eliminar(id: string) {
-		return this.http.delete(this.URL_API + '/' + id);
+		return this.http.delete(this.URL_API + '/' + id, {
+			headers: this.headers
+		});
 	}
 }

@@ -14,3 +14,11 @@ export interface Registro {
     createdAt: string;
     updatedAt: string
 }
+
+
+
+export interface RegistroApi {
+    items: Registro[];
+    total_count: number;
+}
+

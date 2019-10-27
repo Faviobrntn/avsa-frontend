@@ -4,7 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { merge, Observable, of as observableOf } from 'rxjs';
 import { catchError, map, startWith, switchMap } from 'rxjs/operators';
-import { Registro } from 'src/app/modelos/registro';
+import { Registro, RegistroApi } from 'src/app/modelos/registro';
 import { RegistrosService } from 'src/app/servicios/registros.service';
 import { MensajesService } from 'src/app/servicios/mensajes.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -35,7 +35,7 @@ export class RegistrosComponent implements AfterViewInit {
 	) { }
 
 	ngAfterViewInit() {
-		this.registroDatabase = new RegistrosDataSource(this._httpClient);
+		this.registroDatabase = new RegistrosDataSource(this.registroServicio);
 
 		// If the user changes the sort order, reset back to the first page.
 		this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
@@ -105,22 +105,14 @@ export class RegistrosComponent implements AfterViewInit {
 	}
 }
 
-export interface RegistroApi {
-	items: Registro[];
-	total_count: number;
-}
-
 
 /** An example database that the data source uses to retrieve data for the table. */
 export class RegistrosDataSource {
-	constructor(private _httpClient: HttpClient) { }
+	constructor(private registroServicio: RegistrosService) { }
 
-	getRepoIssues(sort: string, order: string, page: number, limit: number): Observable<RegistroApi> {
-		const href = 'http://localhost:5000/api/registros/tabla';
-		const requestUrl =
-			`${href}?q=repo:angular/components&sort=${sort}&order=${order}&page=${page + 1}&limit=${limit}`;
-
-		// this._httpClient.get<RegistroApi>(requestUrl).subscribe(resp => console.log(resp));
-		return this._httpClient.get<RegistroApi>(requestUrl);
+	getRepoIssues(sort: string, order: string, page: number, limit: number, q:string = ''): Observable<RegistroApi> {
+		
+		const requestUrl = `?q=${q}&sort=${sort}&order=${order}&page=${page + 1}&limit=${limit}`;
+		return this.registroServicio.tabla(requestUrl);
 	}
 }

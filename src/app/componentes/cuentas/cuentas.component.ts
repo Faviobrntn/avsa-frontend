@@ -4,7 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { merge, Observable, of as observableOf } from 'rxjs';
 import { catchError, map, startWith, switchMap } from 'rxjs/operators';
-import { Cuenta } from 'src/app/modelos/cuenta';
+import { Cuenta, CuentaApi } from 'src/app/modelos/cuenta';
 import { CuentasService } from 'src/app/servicios/cuentas.service';
 import { MensajesService } from 'src/app/servicios/mensajes.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -36,7 +36,7 @@ export class CuentasComponent implements AfterViewInit {
 	) { }
 
 	ngAfterViewInit() {
-		this.cuentasDatabase = new CuentasDataSource(this._httpClient);
+		this.cuentasDatabase = new CuentasDataSource(this.cuentasServicio);
 
 		// If the user changes the sort order, reset back to the first page.
 		this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
@@ -106,22 +106,15 @@ export class CuentasComponent implements AfterViewInit {
 	}
 }
 
-export interface CuentaApi {
-	items: Cuenta[];
-	total_count: number;
-}
-
 
 /** An example database that the data source uses to retrieve data for the table. */
 export class CuentasDataSource {
-	constructor(private _httpClient: HttpClient) { }
+	constructor(private cuentasServicio: CuentasService) { }
 
 	getRepoIssues(sort: string, order: string, page: number, limit: number, q:string = ''): Observable<CuentaApi> {
-		const href = 'http://localhost:5000/api/cuentas/tabla';
-		const requestUrl =
-			`${href}?q=${sort}&sort=${sort}&order=${order}&page=${page + 1}&limit=${limit}`;
 
-		// this._httpClient.get<CuentaApi>(requestUrl).subscribe(resp => console.log(resp));
-		return this._httpClient.get<CuentaApi>(requestUrl);
+		const requestUrl = `?q=${q}&sort=${sort}&order=${order}&page=${page + 1}&limit=${limit}`;
+		return this.cuentasServicio.tabla(requestUrl);
+
 	}
 }
