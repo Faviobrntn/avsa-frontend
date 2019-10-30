@@ -4,17 +4,20 @@ import { Usuario } from "../modelos/usuario";
 import { JwtResponse } from "../modelos/jwt-response";
 import { tap } from 'rxjs/operators';
 import { Observable, BehaviorSubject } from "rxjs";
+import { Router } from '@angular/router';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class AuthService {
+	readonly URL: string = 'http://localhost:5000';
 	readonly URL_API: string = 'http://localhost:5000/api/';
 	// AUTH_SERVER: string = 'http://localhost:5000/api/';
 	authSubject = new BehaviorSubject(false);
 	public token: string;
+	redirectUrl: string;
 
-	constructor(private http: HttpClient) { }
+	constructor(private http: HttpClient, private router: Router) { }
 
 	register(user: Usuario): Observable<JwtResponse>{
 		return this.http.post<JwtResponse>(this.URL_API + '/register', user)
@@ -48,6 +51,9 @@ export class AuthService {
 		this.token = '';
 		localStorage.removeItem("ACCESS_TOKEN");
 		localStorage.removeItem("EXPIRES_IN");
+		
+		// this.router.navigate(['/login']);
+		// return false;
 	}
 
 

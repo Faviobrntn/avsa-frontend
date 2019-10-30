@@ -23,17 +23,17 @@ export class LoginComponent implements OnInit {
 
 	login(){
 		let token = this.authService.getToken();
-		console.log(token);
 		
 		if (token) {
-			this.router.navigate(['home']);
+			// this.router.navigate(['home']);
+			window.location.href = "/home";
 		}
 
 	}
 
 	google(){
 		// this.router.navigate(['mis-registros']);
-		window.location.href = 'http://localhost:5000/auth/google';
+		window.location.href = this.authService.URL + '/auth/google';
 	}
 	
 	googleCallback(){

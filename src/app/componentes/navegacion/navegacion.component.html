@@ -1,4 +1,4 @@
-<mat-sidenav-container class="sidenav-container">
+<mat-sidenav-container class="sidenav-container" *ngIf="estaLogeado">
   <mat-sidenav #drawer class="sidenav" fixedInViewport
       [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
       [mode]="(isHandset$ | async) ? 'over' : 'side'"
@@ -8,7 +8,7 @@
       <a mat-list-item href="javascript:void(0)" routerLink="/home">Home</a>
       <a mat-list-item href="javascript:void(0)" routerLink="/mis-cuentas">Mis cuentas</a>
       <a mat-list-item href="javascript:void(0)" routerLink="/mis-registros">Mis Registros</a>
-      <a mat-list-item href="javascript:void(0)" routerLink="/home">Cerrar sesión</a>
+      <a mat-list-item href="javascript:void(0)" (click)="logout()">Cerrar sesión</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
@@ -29,3 +29,5 @@
 
   </mat-sidenav-content>
 </mat-sidenav-container>
+
+<router-outlet *ngIf="!estaLogeado"></router-outlet>

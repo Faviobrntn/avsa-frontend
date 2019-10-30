@@ -6,6 +6,7 @@ import { CuentasComponent } from './componentes/cuentas/cuentas.component';
 import { CuentasFormComponent } from './componentes/cuentas-form/cuentas-form.component';
 import { RegistrosComponent } from './componentes/registros/registros.component';
 import { RegistrosFormComponent } from './componentes/registros-form/registros-form.component';
+import { AuthGuard } from './guardias/auth.guard';
 
 const routes: Routes = [
   {
@@ -18,37 +19,49 @@ const routes: Routes = [
   },
   {
     path: 'mis-cuentas',
-    component: CuentasComponent
+    component: CuentasComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'nueva-cuenta',
-    component: CuentasFormComponent
+    component: CuentasFormComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'editar-cuenta/:id',
-    component: CuentasFormComponent
+    component: CuentasFormComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'mis-registros',
-    component: RegistrosComponent
+    component: RegistrosComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'nuevo-registro',
-    component: RegistrosFormComponent
+    component: RegistrosFormComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'editar-registro/:id',
-    component: RegistrosFormComponent
+    component: RegistrosFormComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'home',
-    component: HomeComponent
+    component: HomeComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: '*',
-    redirectTo: 'home'
+    redirectTo: '/login'
     // component: HomeComponent
   },
+  {
+    path: '**',
+    redirectTo: 'login'
+    // component: HomeComponent
+  }
 ];
 
 @NgModule({
