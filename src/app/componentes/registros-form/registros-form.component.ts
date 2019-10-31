@@ -72,8 +72,7 @@ export class RegistrosFormComponent {
 
 						},
 						(err) => {
-							this._mensajes.enviar(err);
-							console.log(err);
+							this._mensajes.enviar(err.message);
 						}
 					);
 				}
@@ -111,8 +110,7 @@ export class RegistrosFormComponent {
 					this.router.navigate(['mis-registros']);
 				},
 				(err) => {
-					this._mensajes.enviar(err);
-					console.log(err);
+					this._mensajes.enviar(err.message);
 				}
 			);
 		} else {
@@ -122,8 +120,7 @@ export class RegistrosFormComponent {
 					this.router.navigate(['mis-registros']);
 				},
 				(err) => {
-					this._mensajes.enviar(err);
-					console.log(err);
+					this._mensajes.enviar(err.message);
 				}
 			);
 

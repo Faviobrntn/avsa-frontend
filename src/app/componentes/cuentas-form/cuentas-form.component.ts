@@ -50,7 +50,7 @@ export class CuentasFormComponent {
 	  	const href = this.URL_API +'monedas/listado';
     	this._httpClient.get(href).subscribe(
 			(resp) => { this.monedas = resp as Moneda[]; }, 
-			(err) => { console.log(err); }
+			(err) => { this._mensajes.enviar(err.message); }
     	);
 	}
 	
@@ -61,7 +61,6 @@ export class CuentasFormComponent {
 					this.cuentasServicio.get(params.id).subscribe(
 						(resp) => {
 							this.cuenta = resp as Cuenta;
-							console.log(resp);
 							
 							this.cuentaForm = this.fb.group({
 								// id: this.cuenta._id,
@@ -75,8 +74,7 @@ export class CuentasFormComponent {
 							
 						},
 						(err) => {
-							this._mensajes.enviar(err);
-							console.log(err);
+							this._mensajes.enviar(err.message);
 						}
 					);
 				}
@@ -86,7 +84,6 @@ export class CuentasFormComponent {
 
   	onSubmit() {
 		const form = this.cuentaForm.value;
-		console.log(form);
 		
 		if (!form.nombre) { 
 			this._mensajes.enviar("Nombre es obligatorio."); return; 
@@ -106,8 +103,7 @@ export class CuentasFormComponent {
 					this.router.navigate(['mis-cuentas']);
 				},
 				(err) => { 
-					this._mensajes.enviar(err);
-					console.log(err);
+					this._mensajes.enviar(err.message);
 				}
 			);
 		}else{
@@ -117,8 +113,7 @@ export class CuentasFormComponent {
 					this.router.navigate(['mis-cuentas']);
 				},
 				(err) => { 
-					this._mensajes.enviar(err);
-					console.log(err);
+					this._mensajes.enviar(err.message);
 				}
 			);
 
