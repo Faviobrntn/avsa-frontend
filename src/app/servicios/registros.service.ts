@@ -8,7 +8,8 @@ import { AuthService } from './auth.service';
 })
 export class RegistrosService {
 
-	readonly URL_API = 'http://localhost:5000/api/registros';
+	readonly URL: string = 'http://localhost:5000/api';
+	readonly URL_API: string = 'http://localhost:5000/api/registros';
 
 	readonly tipos = ['Ingreso', 'Gasto']; 
 	readonly estados = ['Conciliado', 'Procesado', 'Pendiente']; 

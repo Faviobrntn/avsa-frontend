@@ -51,6 +51,6 @@ export class LoginComponent implements OnInit {
 					}
 				}
 			},
-			(err) => this._mensajes.enviar(err.message));
+			(err) => this._mensajes.enviar(err.error.message));
 	}
 }

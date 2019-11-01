@@ -83,7 +83,7 @@ export class RegistrosComponent implements AfterViewInit {
 				});
 			},
 			(err) => {
-				this._mensajes.enviar(err.message);
+				this._mensajes.enviar(err.error.message);
 			}
 		);
 	}
@@ -96,7 +96,7 @@ export class RegistrosComponent implements AfterViewInit {
 					this.ngAfterViewInit();
 				},
 				(err) => {
-					this._mensajes.enviar(err.message);
+					this._mensajes.enviar(err.error.message);
 				}
 			);
 		}

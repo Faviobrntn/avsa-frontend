@@ -11,25 +11,25 @@ import { MensajesService } from 'src/app/servicios/mensajes.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {		  
-		/** Based on the screen size, switch from standard to one column per row */
-		cards = this.breakpointObserver.observe(Breakpoints.Handset)
-			.pipe(
-				map(({ matches }) => {
-					if (matches) {
-						return [
-							{ title: 'Saldos', cols: 2, rows: 1 },
-							// { title: 'Card 3', cols: 2, rows: 1 },
-							// { title: 'Card 4', cols: 2, rows: 1 }
-						];
-					}
-
+	/** Based on the screen size, switch from standard to one column per row */
+	cards = this.breakpointObserver.observe(Breakpoints.Handset)
+		.pipe(
+			map(({ matches }) => {
+				if (matches) {
 					return [
-						{ title: 'Saldos', cols: 1, rows: 1 },
-						// { title: 'Card 3', cols: 1, rows: 2 },
-						// { title: 'Card 4', cols: 1, rows: 1 }
+						{ title: 'Saldos', cols: 2, rows: 1 },
+						// { title: 'Card 3', cols: 2, rows: 1 },
+						// { title: 'Card 4', cols: 2, rows: 1 }
 					];
-				})
-			);
+				}
+
+				return [
+					{ title: 'Saldos', cols: 1, rows: 1 },
+					// { title: 'Card 3', cols: 1, rows: 2 },
+					// { title: 'Card 4', cols: 1, rows: 1 }
+				];
+			})
+		);
 
 	cuentas: string[] = []; 
 	saldo = 0; 
@@ -47,13 +47,13 @@ export class HomeComponent {
 	getCuentas() {
 		this._cuentasService.listado().subscribe(
 			(resp) => { this.cuentas = resp as string[]; },
-			(err) => { this._mensajes.enviar(err.message); }
+			(err) => { this._mensajes.enviar(err.error.message); }
 		);
 	}
 	getSaldoCuentas(id) {
 		this._cuentasService.saldo(id).subscribe(
 			(resp) => { this.saldo = resp as number; },
-			(err) => { this._mensajes.enviar(err.message); }
+			(err) => { this._mensajes.enviar(err.error.message); }
 		);
 	}
 }

@@ -10,7 +10,8 @@ import { AuthService } from './auth.service';
 export class CuentasService {
 	// user: Cuenta;
 	// users: Cuenta[];
-	readonly URL_API = 'http://localhost:5000/api/cuentas';
+	readonly URL: string = 'http://localhost:5000/api';
+	readonly URL_API: string = 'http://localhost:5000/api/cuentas';
 
 	// headers = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' });
 	headers = { 'authorization': this.authService.getToken()};

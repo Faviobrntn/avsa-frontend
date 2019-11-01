@@ -7,6 +7,7 @@ import { CuentasFormComponent } from './componentes/cuentas-form/cuentas-form.co
 import { RegistrosComponent } from './componentes/registros/registros.component';
 import { RegistrosFormComponent } from './componentes/registros-form/registros-form.component';
 import { AuthGuard } from './guardias/auth.guard';
+import { UsuariosComponent } from './componentes/usuarios/usuarios.component';
 
 const routes: Routes = [
   {
@@ -45,6 +46,11 @@ const routes: Routes = [
   {
     path: 'editar-registro/:id',
     component: RegistrosFormComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'mi-perfil',
+    component: UsuariosComponent,
     canActivate: [AuthGuard]
   },
   {

@@ -10,7 +10,7 @@ export class MensajesService {
 
 	enviar(message: string, action: string = "Cerrar") {
 		this._snackBar.open(message, action, {
-			duration: 2500,
+			duration: 3000,
 		});
 	}
 }

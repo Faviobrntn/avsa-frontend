@@ -15,21 +15,14 @@ import { CuentasService } from 'src/app/servicios/cuentas.service';
 })
 export class RegistrosFormComponent {
 	registro: Registro;
-  
-  	registroForm = this.fb.group({
-		tipo: ['Ingreso', Validators.required],
-		fecha_hora: [(new Date()).toLocaleDateString(), Validators.required],
-		importe: [null, Validators.required],
-		estado: 'Procesado',
-		notas: null,
-		cuenta: [null, Validators.required]
-	});
+
+  	registroForm;
 	  
 	hasUnitNumber = false;
 
 	cuentas: Cuenta[] = []; 
-	tipos = this.registrosServicio.tipos;
-	estados = this.registrosServicio.estados;
+	tipos: string[] = [];
+	estados: string[] = [];
 
 	constructor(
 		private fb: FormBuilder,
@@ -40,7 +33,18 @@ export class RegistrosFormComponent {
 		private routerActivo: ActivatedRoute,
 		private _mensajes: MensajesService
 	) {
+		this.tipos = this.registrosServicio.tipos;
+		this.estados = this.registrosServicio.estados;
 
+		this.registroForm = this.fb.group({
+			tipo: ['Ingreso', Validators.required],
+			fecha_hora: [(new Date()).toLocaleDateString(), Validators.required],
+			importe: [null, Validators.required],
+			estado: 'Procesado',
+			notas: null,
+			cuenta: [null, Validators.required]
+		});
+		
 		this.getCuentas();
 		this.editar();
 	}
@@ -48,7 +52,7 @@ export class RegistrosFormComponent {
 	getCuentas() {
 		this._cuentasService.listado().subscribe(
 			(resp) => { this.cuentas = resp as Cuenta[]; },
-			(err) => { console.log(err); }
+			(err) => { this._mensajes.enviar(err.error.message); }
 		);
 	}
 
@@ -59,7 +63,6 @@ export class RegistrosFormComponent {
 					this.registrosServicio.get(params.id).subscribe(
 						(resp) => {
 							this.registro = resp as Registro;
-							console.log(resp);
 
 							this.registroForm = this.fb.group({
 								tipo: [this.registro.tipo, Validators.required],
@@ -72,7 +75,7 @@ export class RegistrosFormComponent {
 
 						},
 						(err) => {
-							this._mensajes.enviar(err.message);
+							this._mensajes.enviar(err.error.message);
 						}
 					);
 				}
@@ -84,7 +87,6 @@ export class RegistrosFormComponent {
 
 	onSubmit() {
 		const form = this.registroForm.value;
-		console.log(form);
 
 		if (!form.tipo) {
 			this._mensajes.enviar("El tipo de registro es obligatorio."); return;
@@ -110,7 +112,7 @@ export class RegistrosFormComponent {
 					this.router.navigate(['mis-registros']);
 				},
 				(err) => {
-					this._mensajes.enviar(err.message);
+					this._mensajes.enviar(err.error.message);
 				}
 			);
 		} else {
@@ -120,7 +122,9 @@ export class RegistrosFormComponent {
 					this.router.navigate(['mis-registros']);
 				},
 				(err) => {
-					this._mensajes.enviar(err.message);
+					console.log(err);
+					
+					this._mensajes.enviar(err.error.message);
 				}
 			);
 

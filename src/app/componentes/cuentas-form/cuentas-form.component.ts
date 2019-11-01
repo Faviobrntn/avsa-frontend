@@ -15,18 +15,7 @@ import { MensajesService } from 'src/app/servicios/mensajes.service';
 export class CuentasFormComponent {
 	cuenta: Cuenta;
 	
-	readonly URL_API = 'http://localhost:5000/api/';
-
-
-	cuentaForm = this.fb.group({
-		// id: [null],
-		nombre: [null, Validators.required],
-		valor_inicial: [null, Validators.required],
-		color: null,
-		tipo: null,
-		descripcion: null,
-		moneda: [null, Validators.required]
-	});
+	cuentaForm = this.fb.group({});
 
   	hasUnitNumber = false;
 
@@ -41,16 +30,26 @@ export class CuentasFormComponent {
 		private _mensajes: MensajesService
   	) {
 
+		this.cuentaForm = this.fb.group({
+			// id: [null],
+			nombre: [null, Validators.required],
+			valor_inicial: [null, Validators.required],
+			color: null,
+			tipo: null,
+			descripcion: null,
+			moneda: [null, Validators.required]
+		});
+
     	this.getMonedas();
 		this.editar();
   	}
   
 
   	getMonedas() {
-	  	const href = this.URL_API +'monedas/listado';
+		const href = this.cuentasServicio.URL+'/monedas/listado';
     	this._httpClient.get(href).subscribe(
 			(resp) => { this.monedas = resp as Moneda[]; }, 
-			(err) => { this._mensajes.enviar(err.message); }
+			(err) => { this._mensajes.enviar(err.error.message); }
     	);
 	}
 	
@@ -74,7 +73,7 @@ export class CuentasFormComponent {
 							
 						},
 						(err) => {
-							this._mensajes.enviar(err.message);
+							this._mensajes.enviar(err.error.message);
 						}
 					);
 				}
@@ -103,7 +102,7 @@ export class CuentasFormComponent {
 					this.router.navigate(['mis-cuentas']);
 				},
 				(err) => { 
-					this._mensajes.enviar(err.message);
+					this._mensajes.enviar(err.error.message);
 				}
 			);
 		}else{
@@ -113,7 +112,7 @@ export class CuentasFormComponent {
 					this.router.navigate(['mis-cuentas']);
 				},
 				(err) => { 
-					this._mensajes.enviar(err.message);
+					this._mensajes.enviar(err.error.message);
 				}
 			);
 

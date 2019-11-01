@@ -84,7 +84,7 @@ export class CuentasComponent implements AfterViewInit {
 				});
 			},
 			(err) => {
-				this._mensajes.enviar(err.message);
+				this._mensajes.enviar(err.error.message);
 			}
 		);
 	}
@@ -97,7 +97,7 @@ export class CuentasComponent implements AfterViewInit {
 					this.ngAfterViewInit();
 				},
 				(err) => {
-					this._mensajes.enviar(err.message);
+					this._mensajes.enviar(err.error.message);
 				}
 			);
 		}
