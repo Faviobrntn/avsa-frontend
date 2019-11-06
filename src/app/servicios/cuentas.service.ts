@@ -68,6 +68,15 @@ export class CuentasService {
 			headers: this.headers
 		});
 	}
+	
+	/**
+	 * get Saldos
+	 */
+	public saldos() {
+		return this.http.get(this.URL_API + '/saldos', {
+			headers: this.headers
+		});
+	}
 
 	/**
 	 * nuevo
