@@ -41,6 +41,8 @@ export class HomeComponent {
 	){
 		
 		this.getCuentas();
+
+			this.getSaldosCuentas();
 	}
 
 
@@ -53,6 +55,13 @@ export class HomeComponent {
 	getSaldoCuentas(id) {
 		this._cuentasService.saldo(id).subscribe(
 			(resp) => { this.saldo = resp as number; },
+			(err) => { this._mensajes.enviar(err.error.message); }
+		);
+	}
+	
+	getSaldosCuentas() {
+		this._cuentasService.saldos().subscribe(
+			(resp) => { console.log(resp); },
 			(err) => { this._mensajes.enviar(err.error.message); }
 		);
 	}

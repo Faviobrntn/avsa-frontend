@@ -28,10 +28,10 @@
                     </p>
                     <mat-form-field>
                         <mat-label>Cuentas</mat-label>
-                        <mat-select placeholder="Cuentas" value="{{usuario.cuenta_default}}">
+                        <mat-select placeholder="Cuentas" [value]="usuario.cuenta_default">
                         <!-- <mat-select placeholder="Cuentas" [(value)]="usuario.cuenta_default"> -->
                             <mat-option>None</mat-option>
-                            <mat-option *ngFor="let cuenta of cuentas" (click)="setCuentaDefault(cuenta._id)" value="cuenta._id">
+                            <mat-option *ngFor="let cuenta of cuentas" (click)="setCuentaDefault(cuenta._id)" [value]="cuenta._id">
                                 {{cuenta.nombre}}
                             </mat-option>
                         </mat-select>
