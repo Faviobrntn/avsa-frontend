@@ -2,6 +2,22 @@
 	<h1 class="mat-h1">Dashboard</h1>
 	  
 	<mat-grid-list cols="4" rowHeight="150px">
+		<mat-grid-tile *ngFor="let cuenta of cardsCuentas | async" [colspan]="cuenta.cols" [rowspan]="cuenta.rows">
+			<mat-card class="dashboard-card" [style.background-color]="cuenta.color">
+				<mat-card-header>
+					<mat-card-title>
+						{{cuenta.nombre}}
+					</mat-card-title>
+				</mat-card-header>
+				<mat-card-content class="dashboard-card-content">
+					<div><h2>{{cuenta.simbolo}} {{cuenta.inicial + cuenta.saldo}}</h2></div>
+				</mat-card-content>
+			</mat-card>
+		</mat-grid-tile>
+	</mat-grid-list>
+
+
+	<!-- <mat-grid-list cols="2" rowHeight="150px">
 		<mat-grid-tile *ngFor="let cuenta of cardsCuentas" [colspan]="1" [rowspan]="1">
 			<mat-card class="dashboard-card" [style.background-color]="cuenta.color">
 				<mat-card-header>
@@ -10,9 +26,11 @@
 					</mat-card-title>
 				</mat-card-header>
 				<mat-card-content class="dashboard-card-content">
-					<div><h1>{{cuenta.simbolo}} {{cuenta.inicial + cuenta.saldo}}</h1></div>
+					<div>
+						<h2>{{cuenta.simbolo}} {{cuenta.inicial + cuenta.saldo}}</h2>
+					</div>
 				</mat-card-content>
 			</mat-card>
 		</mat-grid-tile>
-	</mat-grid-list>
+	</mat-grid-list> -->
 </div>

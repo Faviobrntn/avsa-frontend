@@ -8,6 +8,11 @@
   left: 15px;
   right: 15px;
   bottom: 15px;
+  color: white;
+}
+
+.dashboard-card:hover{
+  color: black;
 }
 
 .more-button {

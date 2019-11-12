@@ -63,7 +63,27 @@ export class HomeComponent {
 	getSaldosCuentas() {
 		this._cuentasService.saldos().subscribe(
 			(resp) => { 
-				this.cardsCuentas = resp;
+				// this.cardsCuentas = resp;
+				this.cardsCuentas = this.breakpointObserver.observe(Breakpoints.Handset)
+					.pipe(
+						map(({ matches }) => {
+							console.log(matches);
+							console.log(resp);
+							
+							if (matches) {
+								for (const key in resp) {
+									resp[key].cols = 4;
+									resp[key].rows = 1;
+								}								
+							}else{
+								for (const key in resp) {
+									resp[key].cols = 1;
+									resp[key].rows = 1;
+								}
+							}
+							return resp;
+						})
+					);
 			},
 			(err) => { this._mensajes.enviar(err.error.message); }
 		);
