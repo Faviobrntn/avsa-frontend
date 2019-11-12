@@ -12,6 +12,7 @@ import { MensajesService } from 'src/app/servicios/mensajes.service';
 })
 export class HomeComponent {		  
 	/** Based on the screen size, switch from standard to one column per row */
+	cardsCuentas = null;
 	cards = this.breakpointObserver.observe(Breakpoints.Handset)
 		.pipe(
 			map(({ matches }) => {
@@ -40,9 +41,9 @@ export class HomeComponent {
 		private _mensajes: MensajesService
 	){
 		
-		this.getCuentas();
+		// this.getCuentas();
 
-			this.getSaldosCuentas();
+		this.getSaldosCuentas();
 	}
 
 
@@ -61,7 +62,9 @@ export class HomeComponent {
 	
 	getSaldosCuentas() {
 		this._cuentasService.saldos().subscribe(
-			(resp) => { console.log(resp); },
+			(resp) => { 
+				this.cardsCuentas = resp;
+			},
 			(err) => { this._mensajes.enviar(err.error.message); }
 		);
 	}
