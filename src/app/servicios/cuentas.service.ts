@@ -10,8 +10,8 @@ import { AuthService } from './auth.service';
 export class CuentasService {
 	// user: Cuenta;
 	// users: Cuenta[];
-	readonly URL: string = 'http://localhost:5000/api';
-	readonly URL_API: string = 'http://localhost:5000/api/cuentas';
+	readonly URL: string = 'https://avsaa.herokuapp.com/api';
+	readonly URL_API: string = 'https://avsaa.herokuapp.com/api/cuentas';
 
 	// headers = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' });
 	readonly headers;

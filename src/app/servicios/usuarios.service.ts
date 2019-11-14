@@ -10,8 +10,8 @@ export class UsuariosService {
 	
 	user: Usuario;
 	users: Usuario[];
-	readonly URL: string = 'http://localhost:5000/api';
-	readonly URL_API: string = 'http://localhost:5000/api/usuarios';
+	readonly URL: string = 'https://avsaa.herokuapp.com/api';
+	readonly URL_API: string = 'https://avsaa.herokuapp.com/api/usuarios';
 
 	headers = { 'authorization': this.authService.getToken() };
 

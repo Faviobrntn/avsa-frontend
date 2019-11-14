@@ -10,9 +10,9 @@ import { Router } from '@angular/router';
 	providedIn: 'root'
 })
 export class AuthService {
-	readonly URL: string = 'http://localhost:5000';
-	readonly URL_API: string = 'http://localhost:5000/api/';
-	// AUTH_SERVER: string = 'http://localhost:5000/api/';
+	readonly URL: string = 'https://avsaa.herokuapp.com';
+	readonly URL_API: string = 'https://avsaa.herokuapp.com/api/';
+	// AUTH_SERVER: string = 'https://avsaa.herokuapp.com/api/';
 	authSubject = new BehaviorSubject(false);
 	public token: string;
 	redirectUrl: string;

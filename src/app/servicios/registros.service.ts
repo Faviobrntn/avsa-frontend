@@ -8,8 +8,8 @@ import { AuthService } from './auth.service';
 })
 export class RegistrosService {
 
-	readonly URL: string = 'http://localhost:5000/api';
-	readonly URL_API: string = 'http://localhost:5000/api/registros';
+	readonly URL: string = 'https://avsaa.herokuapp.com/api';
+	readonly URL_API: string = 'https://avsaa.herokuapp.com/api/registros';
 
 	readonly tipos = ['Ingreso', 'Gasto']; 
 	readonly estados = ['Conciliado', 'Procesado', 'Pendiente']; 
