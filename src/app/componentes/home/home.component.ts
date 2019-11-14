@@ -95,6 +95,7 @@ export class HomeComponent {
 			this._registrosService.cambiarEstado(id, 'Procesado').subscribe(
 				(resp) => {
 					this.getRegistrosPendientes();
+					this._mensajes.enviar("Se cambio de estado con éxito.");
 				},
 				(err) => { this._mensajes.enviar(err.error.message); }
 			);
