@@ -17,7 +17,7 @@
 	</mat-grid-list>
 
 
-	<mat-grid-list cols="1" rowHeight="500px">
+	<mat-grid-list cols="1" rowHeight="500px" *ngIf="cardsRegPend">
 		<mat-grid-tile [colspan]="1" [rowspan]="1">
 			<mat-card class="dashboard-card">
 				<mat-card-header>
