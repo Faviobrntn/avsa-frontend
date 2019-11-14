@@ -11,7 +11,8 @@ import { AuthService } from 'src/app/servicios/auth.service';
 })
 export class NavegacionComponent {
 
-  estaLogeado = this.authService.getToken();
+  estaLogeado = null;
+  
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -22,7 +23,10 @@ export class NavegacionComponent {
   constructor(
     private breakpointObserver: BreakpointObserver,
     private authService: AuthService
-  ) {}
+  ) {
+      
+      this.estaLogeado = this.authService.getToken();
+  }
 
 
   logout(){

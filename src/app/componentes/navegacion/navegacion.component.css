@@ -19,3 +19,11 @@
 .grid-container {
   margin: 40px;
 }
+
+
+.flotante {
+  display:scroll;
+  position:fixed;
+  bottom:30px;
+  right:30px;
+}

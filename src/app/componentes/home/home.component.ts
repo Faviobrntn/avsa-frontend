@@ -4,7 +4,14 @@ import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { HttpClient } from '@angular/common/http';
 import { CuentasService } from 'src/app/servicios/cuentas.service';
 import { MensajesService } from 'src/app/servicios/mensajes.service';
+import { RegistrosService } from 'src/app/servicios/registros.service';
 
+export interface RegistrosTabla {
+	_id: string;
+	fecha: string;
+	tipo: string;
+	importe: number;
+}
 @Component({
   selector: 'home',
   templateUrl: './home.component.html',
@@ -13,24 +20,8 @@ import { MensajesService } from 'src/app/servicios/mensajes.service';
 export class HomeComponent {		  
 	/** Based on the screen size, switch from standard to one column per row */
 	cardsCuentas = null;
-	cards = this.breakpointObserver.observe(Breakpoints.Handset)
-		.pipe(
-			map(({ matches }) => {
-				if (matches) {
-					return [
-						{ title: 'Saldos', cols: 2, rows: 1 },
-						// { title: 'Card 3', cols: 2, rows: 1 },
-						// { title: 'Card 4', cols: 2, rows: 1 }
-					];
-				}
-
-				return [
-					{ title: 'Saldos', cols: 1, rows: 1 },
-					// { title: 'Card 3', cols: 1, rows: 2 },
-					// { title: 'Card 4', cols: 1, rows: 1 }
-				];
-			})
-		);
+	cardsRegPend: RegistrosTabla[] = [];
+	cardsRegPendColumns = ['fecha_hora', 'tipo', 'importe', 'accion'];
 
 	cuentas: string[] = []; 
 	saldo = 0; 
@@ -38,11 +29,13 @@ export class HomeComponent {
   	constructor(
 		private breakpointObserver: BreakpointObserver,
 		private _cuentasService: CuentasService,
+		private _registrosService: RegistrosService,
 		private _mensajes: MensajesService
 	){
 		
 		// this.getCuentas();
 
+		this.getRegistrosPendientes();
 		this.getSaldosCuentas();
 	}
 
@@ -66,10 +59,7 @@ export class HomeComponent {
 				// this.cardsCuentas = resp;
 				this.cardsCuentas = this.breakpointObserver.observe(Breakpoints.Handset)
 					.pipe(
-						map(({ matches }) => {
-							console.log(matches);
-							console.log(resp);
-							
+						map(({ matches }) => {							
 							if (matches) {
 								for (const key in resp) {
 									resp[key].cols = 4;
@@ -87,5 +77,27 @@ export class HomeComponent {
 			},
 			(err) => { this._mensajes.enviar(err.error.message); }
 		);
+	}
+
+
+	getRegistrosPendientes() {
+		this._registrosService.getPorEstado('Pendiente').subscribe(
+			(resp) => {
+				this.cardsRegPend = resp as RegistrosTabla[];				
+			},
+			(err) => { this._mensajes.enviar(err.error.message); }
+		);
+	}
+
+
+	cambiarEstado(id:string){
+		if (confirm('El registro se va a marcar como "Procesado". ¿Desea continuar?')) {
+			this._registrosService.cambiarEstado(id, 'Procesado').subscribe(
+				(resp) => {
+					this.getRegistrosPendientes();
+				},
+				(err) => { this._mensajes.enviar(err.error.message); }
+			);
+		}
 	}
 }

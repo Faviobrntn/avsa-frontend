@@ -5,11 +5,16 @@
       [opened]="(isHandset$ | async) === false">
     <mat-toolbar>Menu</mat-toolbar>
     <mat-nav-list>
-      <a mat-list-item href="javascript:void(0)" routerLink="/home">Home</a>
-      <a mat-list-item href="javascript:void(0)" routerLink="/mis-cuentas">Mis Cuentas</a>
-      <a mat-list-item href="javascript:void(0)" routerLink="/mis-registros">Mis Movimientos</a>
-      <a mat-list-item href="javascript:void(0)" routerLink="/mi-perfil">Mi Perfil</a>
-      <a mat-list-item href="javascript:void(0)" (click)="logout()">Cerrar sesión</a>
+      <a mat-list-item href="javascript:void(0)" routerLink="/home">
+        <mat-icon>home</mat-icon> <span> Home</span></a>
+      <a mat-list-item href="javascript:void(0)" routerLink="/mis-cuentas">
+          <mat-icon>attach_money</mat-icon> <span> Mis Cuentas</span></a>
+      <a mat-list-item href="javascript:void(0)" routerLink="/mis-registros">
+          <mat-icon>list</mat-icon> <span> Mis Movimientos</span></a>
+      <a mat-list-item href="javascript:void(0)" routerLink="/mi-perfil">
+          <mat-icon>face</mat-icon> <span> Mi Perfil</span></a>
+      <a mat-list-item href="javascript:void(0)" (click)="logout()">
+        <mat-icon>exit_to_app</mat-icon> <span> Cerrar sesión</span></a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
@@ -29,6 +34,19 @@
     <div class="grid-container">
       <router-outlet></router-outlet>
     </div>
+
+    <!-- <a mat-fab color="primary" class="flotante" routerLink="/nuevo-registro"><mat-icon>add</mat-icon></a> -->
+    <a mat-fab color="primary" class="flotante" [matMenuTriggerFor]="agregar"><mat-icon>add</mat-icon></a>
+
+    <mat-menu #agregar="matMenu">
+      <button mat-menu-item routerLink="/nueva-cuenta">
+          <mat-icon>attach_money</mat-icon> 
+          <span> Nueva Cuenta</span></button>
+      <button mat-menu-item routerLink="/nuevo-registro">
+          <mat-icon>list</mat-icon>
+          <span>Nuevo Movimiento</span>
+      </button>
+    </mat-menu>
 
   </mat-sidenav-content>
 </mat-sidenav-container>

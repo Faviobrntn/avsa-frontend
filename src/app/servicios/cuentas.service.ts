@@ -14,14 +14,13 @@ export class CuentasService {
 	readonly URL_API: string = 'http://localhost:5000/api/cuentas';
 
 	// headers = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' });
-	headers = { 'authorization': this.authService.getToken()};
+	readonly headers;
 
 	constructor(
 		private http: HttpClient,
 		private authService: AuthService
 	) { 
-		// let token = this.authService.getToken();
-		// this.headers.append('authorization', token);
+		this.headers = { 'authorization': this.authService.getToken() };
 	}
 
 	/**

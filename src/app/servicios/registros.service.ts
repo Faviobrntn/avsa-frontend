@@ -77,4 +77,23 @@ export class RegistrosService {
 			headers: this.headers
 		});
 	}
+
+
+	/**
+	 * getAll
+	 */
+	public getPorEstado(estado:string = "Pendiente") {
+		return this.http.get(this.URL_API + '/estado/' + estado, {
+			headers: this.headers
+		});
+	}
+	
+	/**
+	 * getAll
+	 */
+	public cambiarEstado(id:string, estado:string) {
+		return this.http.put(this.URL_API + '/cambiar_estado/' + id, { estado: estado}, {
+			headers: this.headers
+		});
+	}
 }

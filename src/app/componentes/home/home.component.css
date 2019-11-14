@@ -8,10 +8,12 @@
   left: 15px;
   right: 15px;
   bottom: 15px;
-  color: white;
 }
 
-.dashboard-card:hover{
+.cuentas{
+  color: white;
+}
+.cuentas:hover{
   color: black;
 }
 
@@ -23,4 +25,23 @@
 
 .dashboard-card-content {
   text-align: center;
+}
+
+
+.tabla-container {
+  height: 400px;
+  overflow: auto;
+}
+
+.mat-cell{
+  text-align:initial;
+}
+
+.marginx{
+  margin-left: 6px;
+  margin-right: 6px;
+}
+
+table {
+  width: 100%;
 }

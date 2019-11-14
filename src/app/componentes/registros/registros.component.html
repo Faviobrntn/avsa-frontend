@@ -8,7 +8,7 @@
         <div class="example-loading-shade" *ngIf="isLoadingResults || isRateLimitReached">
             <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
             <div class="example-rate-limit-reached" *ngIf="isRateLimitReached">
-                Se ha alcanzado el límite de velocidad API. Se restablecerá en un minuto.
+                Aun no tiene movimientos cargados.
             </div>
         </div>
 
@@ -32,7 +32,10 @@
                 <!-- State Column -->
                 <ng-container matColumnDef="importe">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Importe</th>
-                    <td mat-cell *matCellDef="let row">{{row.importe}}</td>
+                    <td mat-cell *matCellDef="let row">
+                        <span *ngIf="row.tipo=='Gasto'" class="red">{{row.importe}}</span>
+                        <span *ngIf="row.tipo=='Ingreso'">{{row.importe}}</span>
+                    </td>
                 </ng-container>
 
                 <!-- State Column -->

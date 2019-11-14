@@ -16,8 +16,16 @@ export class AuthService {
 	authSubject = new BehaviorSubject(false);
 	public token: string;
 	redirectUrl: string;
+	
+	estaLogeado: boolean = false;
+	public respuesta:any = {
+		accessToken: null,
+		expiresIn: null
+	};
 
-	constructor(private http: HttpClient, private router: Router) { }
+	constructor(private http: HttpClient, private router: Router) {
+		// this.checkLogin();
+	}
 
 	register(user: Usuario): Observable<JwtResponse>{
 		return this.http.post<JwtResponse>(this.URL_API + '/register', user)
@@ -49,6 +57,7 @@ export class AuthService {
 
 	logout():void {
 		this.token = '';
+		this.estaLogeado = false;
 		localStorage.removeItem("ACCESS_TOKEN");
 		localStorage.removeItem("EXPIRES_IN");
 		
@@ -69,6 +78,25 @@ export class AuthService {
 		}
 
 		return this.token;
-		
+	}
+
+	
+	private checkLogin() {
+		return this.http.get(this.URL + `/verify`, {
+			headers: { 'authorization': this.getToken() }
+		}).subscribe(
+			(resp) => {
+				this.estaLogeado = true;
+				
+				if ('accessToken' in resp) {
+					this.saveToken(resp['accessToken'], resp['expiresIn']);
+				}
+			},
+			(err) => {
+				// this.logout();
+				this.router.navigate(['/login']);
+				return false;
+			}
+		);
 	}
 }
