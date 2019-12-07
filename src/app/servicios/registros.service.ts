@@ -11,10 +11,10 @@ export class RegistrosService {
 	readonly URL: string = 'https://avsaa.herokuapp.com/api';
 	readonly URL_API: string = 'https://avsaa.herokuapp.com/api/registros';
 
-	readonly tipos = ['Ingreso', 'Gasto']; 
-	readonly estados = ['Conciliado', 'Procesado', 'Pendiente']; 
+	readonly tipos = ['Ingreso', 'Gasto'];
+	readonly estados = ['Conciliado', 'Procesado', 'Pendiente'];
 
-	headers = { 'authorization': this.authService.getToken() };
+	headers = { authorization: this.authService.getToken() };
 
 	constructor(
 		private http: HttpClient,
@@ -82,17 +82,17 @@ export class RegistrosService {
 	/**
 	 * getAll
 	 */
-	public getPorEstado(estado:string = "Pendiente") {
+	public getPorEstado(estado: string = 'Pendiente') {
 		return this.http.get(this.URL_API + '/estado/' + estado, {
 			headers: this.headers
 		});
 	}
-	
+
 	/**
 	 * getAll
 	 */
-	public cambiarEstado(id:string, estado:string) {
-		return this.http.put(this.URL_API + '/cambiar_estado/' + id, { estado: estado}, {
+	public cambiarEstado(id: string, estado: string) {
+		return this.http.put(this.URL_API + '/cambiar_estado/' + id, { estado}, {
 			headers: this.headers
 		});
 	}

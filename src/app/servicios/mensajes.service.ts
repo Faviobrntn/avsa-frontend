@@ -5,10 +5,10 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   	providedIn: 'root'
 })
 export class MensajesService {
-	
+
 	constructor(private _snackBar: MatSnackBar) { }
 
-	enviar(message: string, action: string = "Cerrar") {
+	enviar(message: string, action: string = 'Cerrar') {
 		this._snackBar.open(message, action, {
 			duration: 3000,
 		});

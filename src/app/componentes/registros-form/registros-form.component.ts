@@ -17,10 +17,10 @@ export class RegistrosFormComponent {
 	registro: Registro;
 
   	registroForm;
-	  
+
 	hasUnitNumber = false;
 
-	cuentas: Cuenta[] = []; 
+	cuentas: Cuenta[] = [];
 	tipos: string[] = [];
 	estados: string[] = [];
 
@@ -44,7 +44,7 @@ export class RegistrosFormComponent {
 			notas: null,
 			cuenta: [null, Validators.required]
 		});
-		
+
 		this.getCuentas();
 		this.editar();
 	}
@@ -89,26 +89,26 @@ export class RegistrosFormComponent {
 		const form = this.registroForm.value;
 
 		if (!form.tipo) {
-			this._mensajes.enviar("El tipo de registro es obligatorio."); return;
+			this._mensajes.enviar('El tipo de registro es obligatorio.'); return;
 		}
 		if (!form.fecha_hora) {
-			this._mensajes.enviar("La fecha es obligatoria."); return;
+			this._mensajes.enviar('La fecha es obligatoria.'); return;
 		}
 		if (!form.importe) {
-			this._mensajes.enviar("El importe es obligatorio."); return;
+			this._mensajes.enviar('El importe es obligatorio.'); return;
 		}
 		if (!form.cuenta) {
-			this._mensajes.enviar("La cuenta es obligatoria."); return;
+			this._mensajes.enviar('La cuenta es obligatoria.'); return;
 		}
 		if (!form.estado) {
-			this._mensajes.enviar("El estado es obligatoria."); return;
+			this._mensajes.enviar('El estado es obligatoria.'); return;
 		}
 
 		if (this.registro) {
 			form._id = this.registro._id;
 			this.registrosServicio.actualizar(form).subscribe(
 				(resp) => {
-					this._mensajes.enviar("Se guardo con éxito");
+					this._mensajes.enviar('Se guardo con éxito');
 					this.router.navigate(['mis-registros']);
 				},
 				(err) => {
@@ -118,12 +118,12 @@ export class RegistrosFormComponent {
 		} else {
 			this.registrosServicio.nuevo(form).subscribe(
 				(resp) => {
-					this._mensajes.enviar("Se guardo con éxito");
+					this._mensajes.enviar('Se guardo con éxito');
 					this.router.navigate(['mis-registros']);
 				},
 				(err) => {
 					console.log(err);
-					
+
 					this._mensajes.enviar(err.error.message);
 				}
 			);

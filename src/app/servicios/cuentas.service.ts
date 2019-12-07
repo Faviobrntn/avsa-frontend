@@ -19,15 +19,15 @@ export class CuentasService {
 	constructor(
 		private http: HttpClient,
 		private authService: AuthService
-	) { 
-		this.headers = { 'authorization': this.authService.getToken() };
+	) {
+		this.headers = { authorization: this.authService.getToken() };
 	}
 
 	/**
 	 * tabla
 	 */
 	public tabla(requestUrl) {
-		return this.http.get<CuentaApi>(this.URL_API + '/tabla' +requestUrl, {
+		return this.http.get<CuentaApi>(this.URL_API + '/tabla' + requestUrl, {
 			headers: this.headers
 		});
 	}
@@ -67,7 +67,7 @@ export class CuentasService {
 			headers: this.headers
 		});
 	}
-	
+
 	/**
 	 * get Saldos
 	 */

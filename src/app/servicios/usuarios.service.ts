@@ -1,25 +1,25 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Usuario } from "../modelos/usuario";
+import { Usuario } from '../modelos/usuario';
 import { AuthService } from './auth.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class UsuariosService {
-	
+
 	user: Usuario;
 	users: Usuario[];
 	readonly URL: string = 'https://avsaa.herokuapp.com/api';
 	readonly URL_API: string = 'https://avsaa.herokuapp.com/api/usuarios';
 
-	headers = { 'authorization': this.authService.getToken() };
+	headers = { authorization: this.authService.getToken() };
 
 	constructor(
 		private http: HttpClient,
 		private authService: AuthService
 	) { }
-	  
+
 	/**
 	 * getAll
 	 */
@@ -66,8 +66,8 @@ export class UsuariosService {
 			headers: this.headers
 		});
 	}
-	
-	
+
+
 	/**
 	 * Usuario actual
 	 */
@@ -81,7 +81,7 @@ export class UsuariosService {
 	/**
 	 * Guardar cuenta por defecto
 	 */
-	public setCuentaDefault(id:string) {
+	public setCuentaDefault(id: string) {
 		return this.http.put(this.URL_API + '/cuenta_default', {cuenta: id}, {
 			headers: this.headers
 		});

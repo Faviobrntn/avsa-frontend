@@ -2,8 +2,8 @@ import { Component, Inject } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 interface Dictionary {
-	[index: string]: string
-} 
+	[index: string]: string;
+}
 
 @Component({
 	selector: 'dialogos',
@@ -17,14 +17,14 @@ export class DialogosComponent {
 
 	keys(): Array<string> {
 		return Object.keys(this.data);
-	} 
+	}
 
     values(): Array<string> {
 		// console.log(this.data);
-		
+
       	return Object.values(this.data);
-	} 
-	
+	}
+
 	onNoClick(): void {
 		this.dialogRef.close();
 	}

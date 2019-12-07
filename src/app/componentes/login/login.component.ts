@@ -23,24 +23,24 @@ export class LoginComponent implements OnInit {
 	}
 
 
-	login(){
-		let token = this.authService.getToken();
-		
+	login() {
+		const token = this.authService.getToken();
+
 		if (token) {
 			// this.router.navigate(['home']);
-			window.location.href = "/home";
-		}else{
+			window.location.href = '/home';
+		} else {
 			// this._mensajes.enviar("");
 		}
 
 	}
 
-	google(){
+	google() {
 		// this.router.navigate(['mis-registros']);
 		window.location.href = this.authService.URL + '/auth/google';
 	}
-	
-	googleCallback(){
+
+	googleCallback() {
 		this.routerActivo.params.subscribe(
 			(params) => {
 				console.log(params);

@@ -69,16 +69,16 @@ export class CuentasComponent implements AfterViewInit {
 		this.cuentasServicio.get(id).subscribe(
 			(resp: Cuenta) => {
 				const datos = {
-					"Nombre": resp.nombre,
-					"Valor inicial": resp.valor_inicial,
-					"Moneda": resp.moneda.nombre,
-					"Tipo": resp.tipo,
-					"Color": resp.color,
-					"Creado": (new Date(resp.createdAt)).toLocaleDateString(),
-					"Actualizado": (new Date(resp.updatedAt)).toLocaleDateString(),
-					"Descripción": resp.descripcion
-				}
-				
+					Nombre: resp.nombre,
+					'Valor inicial': resp.valor_inicial,
+					Moneda: resp.moneda.nombre,
+					Tipo: resp.tipo,
+					Color: resp.color,
+					Creado: (new Date(resp.createdAt)).toLocaleDateString(),
+					Actualizado: (new Date(resp.updatedAt)).toLocaleDateString(),
+					Descripción: resp.descripcion
+				};
+
 				this.dialog.open(DialogosComponent, {
 					data: datos,
 				});
@@ -89,11 +89,11 @@ export class CuentasComponent implements AfterViewInit {
 		);
 	}
 
-	eliminar(id: string){
-		if (confirm("Se va a eliminar la fila seleccionada. ¿Desea continuar?")) {
+	eliminar(id: string) {
+		if (confirm('Se va a eliminar la fila seleccionada. ¿Desea continuar?')) {
 			this.cuentasServicio.eliminar(id).subscribe(
 				(resp) => {
-					this._mensajes.enviar("Se elimino con éxito");
+					this._mensajes.enviar('Se elimino con éxito');
 					this.ngAfterViewInit();
 				},
 				(err) => {
@@ -109,7 +109,7 @@ export class CuentasComponent implements AfterViewInit {
 export class CuentasDataSource {
 	constructor(private cuentasServicio: CuentasService) { }
 
-	getRepoIssues(sort: string, order: string, page: number, limit: number, q:string = ''): Observable<CuentaApi> {
+	getRepoIssues(sort: string, order: string, page: number, limit: number, q: string = ''): Observable<CuentaApi> {
 
 		const requestUrl = `?q=${q}&sort=${sort}&order=${order}&page=${page + 1}&limit=${limit}`;
 		return this.cuentasServicio.tabla(requestUrl);

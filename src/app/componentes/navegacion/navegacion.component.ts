@@ -12,7 +12,7 @@ import { AuthService } from 'src/app/servicios/auth.service';
 export class NavegacionComponent {
 
   estaLogeado = null;
-  
+
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -24,15 +24,15 @@ export class NavegacionComponent {
     private breakpointObserver: BreakpointObserver,
     private authService: AuthService
   ) {
-      
+
       this.estaLogeado = this.authService.getToken();
   }
 
 
-  logout(){
-    if (confirm("Se va a cerrar sesión. Desea continuar?")) {
+  logout() {
+    if (confirm('Se va a cerrar sesión. Desea continuar?')) {
       this.authService.logout();
-      window.location.href = "/";
+      window.location.href = '/';
     }
   }
 

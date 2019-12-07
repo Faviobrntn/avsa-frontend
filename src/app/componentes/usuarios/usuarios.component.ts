@@ -14,10 +14,10 @@ import { MensajesService } from 'src/app/servicios/mensajes.service';
 })
 export class UsuariosComponent implements OnInit, AfterViewInit {
 	usuario: Usuario = {
-		nombre: "",
-		email: "",
-		cuenta_default: "",
-		imagen: ""
+		nombre: '',
+		email: '',
+		cuenta_default: '',
+		imagen: ''
 	};
 	cuentas: string[] = [];
 
@@ -27,18 +27,18 @@ export class UsuariosComponent implements OnInit, AfterViewInit {
 		private _mensajes: MensajesService
 	) { }
 
-	ngOnInit(){
+	ngOnInit() {
 		this.getCuentas();
 		// this.getCurrentUser();
 	}
-	ngAfterViewInit(){
+	ngAfterViewInit() {
 		// this.getCuentas();
 		this.getCurrentUser();
 	}
 
 	getCuentas() {
 		this._cuentasService.listado().subscribe(
-			(resp) => { this.cuentas = resp as string[];},
+			(resp) => { this.cuentas = resp as string[]; },
 			(err) => { this._mensajes.enviar(err.error.message); }
 		);
 	}
@@ -46,23 +46,23 @@ export class UsuariosComponent implements OnInit, AfterViewInit {
 	getCurrentUser() {
 		this._usuariosService.current_user()
 			.subscribe(
-				(resp) => { this.usuario = resp as Usuario;},
+				(resp) => { this.usuario = resp as Usuario; },
 				(err) => { this._mensajes.enviar(err.error.message); }
 			);
 	}
 
 
-	setCuentaDefault(id){
+	setCuentaDefault(id) {
 		this._usuariosService.setCuentaDefault(id)
 			.subscribe(
-				(resp) => { 
-					this._mensajes.enviar("Se actualizo con éxito.");
+				(resp) => {
+					this._mensajes.enviar('Se actualizo con éxito.');
 					console.log(resp);
-					
-					this.usuario = resp as Usuario; 
+
+					this.usuario = resp as Usuario;
 				},
 				(err) => { this._mensajes.enviar(err.error.message); }
 			);
-		
+
 	}
 }

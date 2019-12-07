@@ -17,22 +17,22 @@ export interface RegistrosTabla {
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent {		  
+export class HomeComponent {
 	/** Based on the screen size, switch from standard to one column per row */
 	cardsCuentas = null;
 	cardsRegPend: RegistrosTabla[] = [];
 	cardsRegPendColumns = ['fecha_hora', 'tipo', 'importe', 'accion'];
 
-	cuentas: string[] = []; 
-	saldo = 0; 
+	cuentas: string[] = [];
+	saldo = 0;
 
   	constructor(
 		private breakpointObserver: BreakpointObserver,
 		private _cuentasService: CuentasService,
 		private _registrosService: RegistrosService,
 		private _mensajes: MensajesService
-	){
-		
+	) {
+
 		// this.getCuentas();
 
 		this.getRegistrosPendientes();
@@ -52,20 +52,20 @@ export class HomeComponent {
 			(err) => { this._mensajes.enviar(err.error.message); }
 		);
 	}
-	
+
 	getSaldosCuentas() {
 		this._cuentasService.saldos().subscribe(
-			(resp) => { 
+			(resp) => {
 				// this.cardsCuentas = resp;
 				this.cardsCuentas = this.breakpointObserver.observe(Breakpoints.Handset)
 					.pipe(
-						map(({ matches }) => {							
+						map(({ matches }) => {
 							if (matches) {
 								for (const key in resp) {
 									resp[key].cols = 4;
 									resp[key].rows = 1;
-								}								
-							}else{
+								}
+							} else {
 								for (const key in resp) {
 									resp[key].cols = 1;
 									resp[key].rows = 1;
@@ -83,19 +83,19 @@ export class HomeComponent {
 	getRegistrosPendientes() {
 		this._registrosService.getPorEstado('Pendiente').subscribe(
 			(resp) => {
-				this.cardsRegPend = resp as RegistrosTabla[];				
+				this.cardsRegPend = resp as RegistrosTabla[];
 			},
 			(err) => { this._mensajes.enviar(err.error.message); }
 		);
 	}
 
 
-	cambiarEstado(id:string){
+	cambiarEstado(id: string) {
 		if (confirm('El registro se va a marcar como "Procesado". ¿Desea continuar?')) {
 			this._registrosService.cambiarEstado(id, 'Procesado').subscribe(
 				(resp) => {
 					this.getRegistrosPendientes();
-					this._mensajes.enviar("Se cambio de estado con éxito.");
+					this._mensajes.enviar('Se cambio de estado con éxito.');
 				},
 				(err) => { this._mensajes.enviar(err.error.message); }
 			);

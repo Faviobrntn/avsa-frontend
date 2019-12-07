@@ -10,7 +10,7 @@ export interface Cuenta {
     descripcion: string;
     moneda: Moneda;
     createdAt: string;
-    updatedAt: string
+    updatedAt: string;
 }
 
 

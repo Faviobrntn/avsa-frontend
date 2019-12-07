@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
-import { Usuario } from "../modelos/usuario";
-import { JwtResponse } from "../modelos/jwt-response";
+import { HttpClient } from '@angular/common/http';
+import { Usuario } from '../modelos/usuario';
+import { JwtResponse } from '../modelos/jwt-response';
 import { tap } from 'rxjs/operators';
-import { Observable, BehaviorSubject } from "rxjs";
+import { Observable, BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -16,9 +16,9 @@ export class AuthService {
 	authSubject = new BehaviorSubject(false);
 	public token: string;
 	redirectUrl: string;
-	
-	estaLogeado: boolean = false;
-	public respuesta:any = {
+
+	estaLogeado = false;
+	public respuesta: any = {
 		accessToken: null,
 		expiresIn: null
 	};
@@ -27,11 +27,11 @@ export class AuthService {
 		// this.checkLogin();
 	}
 
-	register(user: Usuario): Observable<JwtResponse>{
+	register(user: Usuario): Observable<JwtResponse> {
 		return this.http.post<JwtResponse>(this.URL_API + '/register', user)
 			.pipe(tap(
-				(res:JwtResponse) => {
-					if(res){
+				(res: JwtResponse) => {
+					if (res) {
 						// guardar token
 
 						this.saveToken(res.dataUsuario.accessToken, res.dataUsuario.expiresIn);
@@ -40,12 +40,12 @@ export class AuthService {
 			));
 	}
 
-	
-	login(user: Usuario): Observable<JwtResponse>{
+
+	login(user: Usuario): Observable<JwtResponse> {
 		return this.http.post<JwtResponse>(this.URL_API + '/login', user)
 			.pipe(tap(
-				(res:JwtResponse) => {
-					if(res){
+				(res: JwtResponse) => {
+					if (res) {
 						// guardar token
 
 						this.saveToken(res.dataUsuario.accessToken, res.dataUsuario.expiresIn);
@@ -55,41 +55,41 @@ export class AuthService {
 	}
 
 
-	logout():void {
+	logout(): void {
 		this.token = '';
 		this.estaLogeado = false;
-		localStorage.removeItem("ACCESS_TOKEN");
-		localStorage.removeItem("EXPIRES_IN");
-		
+		localStorage.removeItem('ACCESS_TOKEN');
+		localStorage.removeItem('EXPIRES_IN');
+
 		// this.router.navigate(['/login']);
 		// return false;
 	}
 
 
-	public saveToken(token: string, expires_in: string):void {
-		localStorage.setItem("ACCESS_TOKEN", token);
-		localStorage.setItem("EXPIRES_IN", expires_in);
+	public saveToken(token: string, expires_in: string): void {
+		localStorage.setItem('ACCESS_TOKEN', token);
+		localStorage.setItem('EXPIRES_IN', expires_in);
 		this.token = token;
 	}
 
-	public getToken():string {
+	public getToken(): string {
 		if (!this.token) {
-			this.token = localStorage.getItem("ACCESS_TOKEN");
+			this.token = localStorage.getItem('ACCESS_TOKEN');
 		}
 
 		return this.token;
 	}
 
-	
+
 	private checkLogin() {
 		return this.http.get(this.URL + `/verify`, {
-			headers: { 'authorization': this.getToken() }
+			headers: { authorization: this.getToken() }
 		}).subscribe(
-			(resp) => {
+			(resp: any) => {
 				this.estaLogeado = true;
-				
+
 				if ('accessToken' in resp) {
-					this.saveToken(resp['accessToken'], resp['expiresIn']);
+					this.saveToken(resp.accessToken, resp.expiresIn);
 				}
 			},
 			(err) => {

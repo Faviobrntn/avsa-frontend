@@ -14,12 +14,12 @@ import { MensajesService } from 'src/app/servicios/mensajes.service';
 })
 export class CuentasFormComponent {
 	cuenta: Cuenta;
-	
+
 	cuentaForm = this.fb.group({});
 
   	hasUnitNumber = false;
 
-  	monedas: Moneda[] = []; 
+  	monedas: Moneda[] = [];
 
   	constructor(
 		private fb: FormBuilder,
@@ -40,27 +40,27 @@ export class CuentasFormComponent {
 			moneda: [null, Validators.required]
 		});
 
-    	this.getMonedas();
+  this.getMonedas();
 		this.editar();
   	}
-  
+
 
   	getMonedas() {
-		const href = this.cuentasServicio.URL+'/monedas/listado';
-    	this._httpClient.get(href).subscribe(
-			(resp) => { this.monedas = resp as Moneda[]; }, 
+		const href = this.cuentasServicio.URL + '/monedas/listado';
+  this._httpClient.get(href).subscribe(
+			(resp) => { this.monedas = resp as Moneda[]; },
 			(err) => { this._mensajes.enviar(err.error.message); }
     	);
 	}
-	
-	editar(){
+
+	editar() {
 		this.routerActivo.params.subscribe(
 			(params) => {
 				if (params.id) {
 					this.cuentasServicio.get(params.id).subscribe(
 						(resp) => {
 							this.cuenta = resp as Cuenta;
-							
+
 							this.cuentaForm = this.fb.group({
 								// id: this.cuenta._id,
 								nombre: [this.cuenta.nombre, Validators.required],
@@ -70,7 +70,7 @@ export class CuentasFormComponent {
 								descripcion: this.cuenta.descripcion,
 								moneda: [this.cuenta.moneda._id, Validators.required]
 							});
-							
+
 						},
 						(err) => {
 							this._mensajes.enviar(err.error.message);
@@ -83,40 +83,40 @@ export class CuentasFormComponent {
 
   	onSubmit() {
 		const form = this.cuentaForm.value;
-		
-		if (!form.nombre) { 
-			this._mensajes.enviar("Nombre es obligatorio."); return; 
+
+		if (!form.nombre) {
+			this._mensajes.enviar('Nombre es obligatorio.'); return;
 		}
-		if (!form.valor_inicial) { 
-			this._mensajes.enviar("El valor inicial es obligatorio."); return;
+		if (!form.valor_inicial) {
+			this._mensajes.enviar('El valor inicial es obligatorio.'); return;
 		}
-		if (!form.moneda) { 
-			this._mensajes.enviar("La moneda es obligatoria."); return; 
+		if (!form.moneda) {
+			this._mensajes.enviar('La moneda es obligatoria.'); return;
 		}
 
 		if (this.cuenta) {
 			form._id = this.cuenta._id;
 			this.cuentasServicio.actualizar(form).subscribe(
 				(resp) => {
-					this._mensajes.enviar("Se guardo con éxito");
+					this._mensajes.enviar('Se guardo con éxito');
 					this.router.navigate(['mis-cuentas']);
 				},
-				(err) => { 
+				(err) => {
 					this._mensajes.enviar(err.error.message);
 				}
 			);
-		}else{
+		} else {
 			this.cuentasServicio.nuevo(form).subscribe(
 				(resp) => {
-					this._mensajes.enviar("Se guardo con éxito");
+					this._mensajes.enviar('Se guardo con éxito');
 					this.router.navigate(['mis-cuentas']);
 				},
-				(err) => { 
+				(err) => {
 					this._mensajes.enviar(err.error.message);
 				}
 			);
 
-		}    
-    
+		}
+
   	}
 }

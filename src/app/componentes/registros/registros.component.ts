@@ -68,15 +68,15 @@ export class RegistrosComponent implements AfterViewInit {
 		this.registroServicio.get(id).subscribe(
 			(resp: Registro) => {
 				const datos = {
-					"Tipo": resp.tipo,
-					"Fecha": resp.fecha_hora,
-					"Importe": resp.importe,
-					"Estado": resp.estado,
-					"Cuenta": resp.cuenta.nombre,
-					"Creado": (new Date(resp.createdAt)).toLocaleDateString(),
-					"Actualizado": (new Date(resp.updatedAt)).toLocaleDateString(),
-					"Descripción": resp.notas
-				}
+					Tipo: resp.tipo,
+					Fecha: resp.fecha_hora,
+					Importe: resp.importe,
+					Estado: resp.estado,
+					Cuenta: resp.cuenta.nombre,
+					Creado: (new Date(resp.createdAt)).toLocaleDateString(),
+					Actualizado: (new Date(resp.updatedAt)).toLocaleDateString(),
+					Descripción: resp.notas
+				};
 
 				this.dialog.open(DialogosComponent, {
 					data: datos,
@@ -89,10 +89,10 @@ export class RegistrosComponent implements AfterViewInit {
 	}
 
 	eliminar(id: string) {
-		if (confirm("Se va a eliminar la fila seleccionada. ¿Desea continuar?")) {
+		if (confirm('Se va a eliminar la fila seleccionada. ¿Desea continuar?')) {
 			this.registroServicio.eliminar(id).subscribe(
 				(resp) => {
-					this._mensajes.enviar("Se elimino con éxito");
+					this._mensajes.enviar('Se elimino con éxito');
 					this.ngAfterViewInit();
 				},
 				(err) => {
@@ -108,8 +108,8 @@ export class RegistrosComponent implements AfterViewInit {
 export class RegistrosDataSource {
 	constructor(private registroServicio: RegistrosService) { }
 
-	getRepoIssues(sort: string, order: string, page: number, limit: number, q:string = ''): Observable<RegistroApi> {
-		
+	getRepoIssues(sort: string, order: string, page: number, limit: number, q: string = ''): Observable<RegistroApi> {
+
 		const requestUrl = `?q=${q}&sort=${sort}&order=${order}&page=${page + 1}&limit=${limit}`;
 		return this.registroServicio.tabla(requestUrl);
 	}

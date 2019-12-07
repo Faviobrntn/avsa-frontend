@@ -5,5 +5,5 @@ export interface JwtResponse {
         email: string,
         accessToken: string,
         expiresIn: string
-    }
+    };
 }
