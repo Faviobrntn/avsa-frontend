@@ -25,8 +25,8 @@ export class CuentasComponent implements AfterViewInit {
 	isLoadingResults = true;
 	isRateLimitReached = false;
 
-	@ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
-	@ViewChild(MatSort, { static: false }) sort: MatSort;
+	@ViewChild(MatPaginator) paginator: MatPaginator;
+	@ViewChild(MatSort) sort: MatSort;
 
 	constructor(
 		private _httpClient: HttpClient,
