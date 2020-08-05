@@ -14,7 +14,7 @@ export class AuthService {
 	readonly URL_API: string = 'https://avsaa.herokuapp.com/api/';
 	// AUTH_SERVER: string = 'https://avsaa.herokuapp.com/api/';
 	authSubject = new BehaviorSubject(false);
-	public token: string;
+	public token: string = null;
 	redirectUrl: string;
 
 	estaLogeado = false;
@@ -56,7 +56,7 @@ export class AuthService {
 
 
 	logout(): void {
-		this.token = '';
+		this.token = null;
 		this.estaLogeado = false;
 		localStorage.removeItem('ACCESS_TOKEN');
 		localStorage.removeItem('EXPIRES_IN');
